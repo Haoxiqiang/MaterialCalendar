@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/calendar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+
+    <LinearLayout
+        android:layout_below="@id/calendar_toolbar"
+        android:id="@+id/titleDesc"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:paddingLeft="16dip"
+        android:background="?attr/colorPrimary"
+        android:paddingRight="16dip"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/yearDesc"
+            android:text="2015年3月19日"
+            android:id="@+id/Gregorianum" />
+
+        <TextView
+            style="@style/yearDesc"
+            android:text="乙未羊年一月二十九"
+            android:id="@+id/Xia" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/titleDivider"
+        android:layout_below="@id/titleDesc"
+        android:layout_width="match_parent"
+        android:layout_height="5dip" />
+
+    <ScrollView
+        android:layout_below="@id/titleDesc"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dip"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dip"
+            android:paddingRight="16dip"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/week"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:background="?attr/colorAccent">
+
+                <TextView
+                    style="@style/weekName"
+                    android:text="日" />
+
+                <TextView
+                    style="@style/weekName"
+                    android:text="一" />
+
+                <TextView
+                    style="@style/weekName"
+                    android:text="二" />
+
+                <TextView
+                    style="@style/weekName"
+                    android:text="三" />
+
+                <TextView
+                    style="@style/weekName"
+                    android:text="四" />
+
+                <TextView
+                    style="@style/weekName"
+                    android:text="五" />
+
+                <TextView
+                    style="@style/weekName"
+                    android:text="六" />
+            </LinearLayout>
+
+
+            <ViewFlipper
+                android:id="@+id/calendar_flipper"
+                android:layout_width="match_parent"
+                android:layout_height="240dip"
+                android:layout_below="@id/week"
+                android:layout_gravity="center_horizontal" />
+
+            <View
+                android:id="@+id/weekDivider"
+                android:layout_below="@id/week"
+                android:layout_width="match_parent"
+                android:layout_height="5dip" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="2dip"
+    android:paddingRight="2dip"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/daydesc"
+        style="@style/dayDesc"
+        android:layout_alignParentTop="true"
+        android:text="1"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_lv2"
+        android:gravity="center|bottom" />
+
+    <TextView
+        android:id="@+id/lunardesc"
+        style="@style/dayDesc"
+        android:text="初一"
+        android:layout_below="@id/daydesc"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:textColor="@color/text_color_lv2"
+        android:gravity="center|top" />
+
+</RelativeLayout>
