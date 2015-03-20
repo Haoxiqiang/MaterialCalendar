@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "info.hxq.materialcalendar"
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,14 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.jakewharton:butterknife:6.1.0'
+    //https://github.com/balysv/material-menu/releases
+    compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
+    compile 'com.mcxiaoke.volley:library:1.0.15'
+    //https://github.com/jgilfelt/android-sqlite-asset-helper
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+
 }

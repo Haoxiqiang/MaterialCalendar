@@ -36,6 +36,7 @@
         android:id="@+id/titleDivider"
         android:layout_below="@id/titleDesc"
         android:layout_width="match_parent"
+        android:background="@drawable/global_shadow_fade_bottom"
         android:layout_height="5dip" />
 
     <ScrollView
@@ -99,6 +100,8 @@
                 android:id="@+id/weekDivider"
                 android:layout_below="@id/week"
                 android:layout_width="match_parent"
+                android:layout_marginRight="1.5dip"
+                android:background="@drawable/global_shadow_fade_bottom"
                 android:layout_height="5dip" />
         </RelativeLayout>
     </ScrollView>
