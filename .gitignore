@@ -33,4 +33,6 @@ proguard/
 
 # Log Files
 *.log
->>>>>>> e1d2b0430b0f2d8bd3d32aabec78ab47f395f585
+
+.idea/
+app.iml
