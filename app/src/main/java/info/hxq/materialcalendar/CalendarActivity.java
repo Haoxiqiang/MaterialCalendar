@@ -24,6 +24,7 @@ import android.widget.ViewFlipper;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import info.hxq.materialcalendar.proxy.TabooProxy;
 
 
 /**
@@ -56,10 +57,6 @@ public class CalendarActivity extends BaseActivity {
     Toolbar mToolBar;
     @InjectView(R.id.calendar_flipper)
     ViewFlipper mFlipper;
-    @InjectView(R.id.titleDivider)
-    View titleDivider;
-    @InjectView(R.id.weekDivider)
-    View weekDivider;
 
     public CalendarActivity() {
         Time time = new Time();
@@ -87,12 +84,6 @@ public class CalendarActivity extends BaseActivity {
         mToolBar.setTitleTextColor(Color.WHITE);
 //        mToolBar.setNavigationIcon(R.drawable.zuojiantou);
 
-        final GradientDrawable titleDividerBackground = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{0x40000000, 0x10000000,0x00000000});
-        titleDividerBackground.setGradientType(GradientDrawable.LINEAR_GRADIENT);
-        titleDivider.setBackgroundDrawable(titleDividerBackground);
-        weekDivider.setBackgroundDrawable(titleDividerBackground);
-
-
         gestureDetector = new GestureDetector(this, new MyGestureListener());
         mFlipper.removeAllViews();
         calV = new CalendarAdapter(this, jumpMonth, year_c, month_c);
@@ -101,6 +92,8 @@ public class CalendarActivity extends BaseActivity {
         mFlipper.addView(gridView, 0);
 
         addTextToTopTextView();
+
+        TabooProxy.fetchJSContent();
     }
 
     private class MyGestureListener extends SimpleOnGestureListener {

@@ -14,7 +14,7 @@
     <color name="text_color_lv1">#444444</color>
     <color name="text_color_lv2">#666666</color>
     <color name="text_color_lv3">#999999</color>
-
+    <color name="selected_gray">#ffdbdbdb</color>
 
     <color name="White">#FFF</color>
     <color name="Black">#000</color>

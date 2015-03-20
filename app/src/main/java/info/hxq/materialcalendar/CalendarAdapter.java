@@ -33,8 +33,8 @@ public class CalendarAdapter extends BaseAdapter {
     // 系统当前时间
     private Day sysDay;
     private Day showDay;
-    private final int normalDayColor = Color.parseColor("#FF111111");
-    private final int otherDayColor = Color.parseColor("#FFCCCCCC");
+    private final int normalDayColor = Color.parseColor("#FF222222");
+    private final int otherDayColor = Color.parseColor("#FFBBBBBB");
     private Drawable normalSignedDrawable;
     private Drawable otherSignedDrawable;
 
