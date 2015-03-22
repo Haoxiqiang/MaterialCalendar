@@ -11,16 +11,12 @@ public final class ILog {
     private static final boolean NEEDLOGS = BuildConfig.DEBUG;
     private static final int FAILURECODE = -1;
 
-    enum LogType {
-        V, D, I, W, E, A
+    private ILog() {
+
     }
 
     public static boolean isNeedLogs() {
         return NEEDLOGS;
-    }
-
-    private ILog() {
-
     }
 
     // repeat these type is wtf
@@ -124,11 +120,11 @@ public final class ILog {
         return print_log(LogType.W, tag, msg, tr);
     }
 
-    // error
-
     public static int e() {
         return print_log(LogType.E, null, DEFALUTTIPS, new Throwable(ILOGTHROWABLE));
     }
+
+    // error
 
     public static int e(String msg) {
         return print_log(LogType.E, null, msg, new Throwable(ILOGTHROWABLE));
@@ -252,6 +248,10 @@ public final class ILog {
         }
 
         return FAILURECODE;
+    }
+
+    enum LogType {
+        V, D, I, W, E, A
     }
 
 }

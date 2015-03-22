@@ -1,4 +1,4 @@
-package info.hxq.materialcalendar;
+package info.hxq.materialcalendar.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,6 +9,18 @@ import android.support.annotation.NonNull;
  */
 public class Day implements Comparable, Parcelable, Cloneable {
 
+    public static final Creator<Day> CREATOR
+            = new Creator<Day>() {
+        public Day createFromParcel(Parcel source) {
+            Day day = new Day();
+            day.readFromParcel(source);
+            return day;
+        }
+
+        public Day[] newArray(int size) {
+            return new Day[size];
+        }
+    };
     public int monthDay = -1;
     public int month = -1;
     public int year = -1;
@@ -45,7 +57,6 @@ public class Day implements Comparable, Parcelable, Cloneable {
             return day;
         }
     }
-
 
     @Override
     public int hashCode() {
@@ -93,19 +104,6 @@ public class Day implements Comparable, Parcelable, Cloneable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<Day> CREATOR
-            = new Creator<Day>() {
-        public Day createFromParcel(Parcel source) {
-            Day day = new Day();
-            day.readFromParcel(source);
-            return day;
-        }
-
-        public Day[] newArray(int size) {
-            return new Day[size];
-        }
-    };
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(year);

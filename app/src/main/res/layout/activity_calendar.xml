@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,56 +8,106 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/calendar_toolbar"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary" />
 
-    <LinearLayout
-        android:layout_below="@id/calendar_toolbar"
+    <RelativeLayout
         android:id="@+id/titleDesc"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:paddingLeft="16dip"
+        android:layout_below="@id/calendar_toolbar"
         android:background="?attr/colorPrimary"
-        android:paddingRight="16dip"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip">
 
-        <TextView
-            style="@style/yearDesc"
-            android:text="2015年3月19日"
-            android:id="@+id/Gregorianum" />
+        <LinearLayout
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/yearDesc"
-            android:text="乙未羊年一月二十九"
-            android:id="@+id/Xia" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/Gregorianum"
+                style="@style/yearDesc"
+                android:text="2015年3月19日" />
+
+            <TextView
+                android:id="@+id/Xia"
+                style="@style/yearDesc"
+                android:text="乙未羊年一月二十九" />
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/skyicons"
+            android:layout_alignParentRight="true"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="right">
+
+            <com.thbs.skycons.library.CloudHvRainView
+                android:id="@+id/sunview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bgColor="?attr/colorPrimary"
+                app:isStatic="false"
+                app:strokeColor="@color/white" />
+        </FrameLayout>
+        <LinearLayout
+            android:layout_toLeftOf="@id/skyicons"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="北京"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/titleWeather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
     <View
         android:id="@+id/titleDivider"
-        android:layout_below="@id/titleDesc"
         android:layout_width="match_parent"
-        android:background="@drawable/global_shadow_fade_bottom"
-        android:layout_height="5dip" />
+        android:layout_height="5dip"
+        android:layout_below="@id/titleDesc"
+        android:background="@drawable/global_shadow_fade_bottom" />
 
     <ScrollView
-        android:layout_below="@id/titleDesc"
         android:layout_width="match_parent"
-        android:layout_marginTop="16dip"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleDesc"
+        android:layout_marginTop="16dip">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingLeft="16dip"
-            android:paddingRight="16dip"
-            android:orientation="vertical">
+            android:paddingRight="16dip">
 
             <LinearLayout
                 android:id="@+id/week"
-                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="48dip"
+                android:layout_alignParentTop="true"
                 android:background="?attr/colorAccent">
 
                 <TextView
@@ -98,11 +149,13 @@
 
             <View
                 android:id="@+id/weekDivider"
-                android:layout_below="@id/week"
                 android:layout_width="match_parent"
+                android:layout_height="5dip"
+                android:layout_below="@id/week"
                 android:layout_marginRight="1.5dip"
-                android:background="@drawable/global_shadow_fade_bottom"
-                android:layout_height="5dip" />
+                android:background="@drawable/global_shadow_fade_bottom" />
+
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -2,7 +2,6 @@ package info.hxq.materialcalendar;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
@@ -17,14 +16,28 @@ import android.view.animation.AnimationUtils;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.thbs.skycons.library.CloudHvRainView;
+import com.thbs.skycons.library.CloudRainView;
+import com.thbs.skycons.library.CloudSnowView;
+import com.thbs.skycons.library.CloudThunderView;
+import com.thbs.skycons.library.CloudView;
+import com.thbs.skycons.library.SunView;
+import com.thbs.skycons.library.WeatherTemplateView;
+import com.thbs.skycons.library.WindView;
+
+import org.json.JSONObject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import info.hxq.materialcalendar.proxy.TabooProxy;
+import info.hxq.materialcalendar.entity.Day;
+import info.hxq.materialcalendar.entity.Weather;
+import info.hxq.materialcalendar.proxy.WeatherProxy;
 
 
 /**
@@ -32,18 +45,11 @@ import info.hxq.materialcalendar.proxy.TabooProxy;
  */
 public class CalendarActivity extends BaseActivity {
 
-    private GestureDetector gestureDetector = null;
-    private CalendarAdapter calV = null;
-    private GridView gridView = null;
-
     private static int sensibility;
-
     /**
      * 每次滑动，增加或减去一个月,默认为0（即显示当前月）
      */
     private static int jumpMonth = 0;
-    private int year_c = 0;
-    private int month_c = 0;
     /**
      * 当前的年月，现在日历顶端
      */
@@ -52,11 +58,23 @@ public class CalendarActivity extends BaseActivity {
     TextView Gregorianum;
     @InjectView(R.id.Xia)
     TextView Xia;
-
     @InjectView(R.id.calendar_toolbar)
     Toolbar mToolBar;
     @InjectView(R.id.calendar_flipper)
     ViewFlipper mFlipper;
+
+    @InjectView(R.id.titleCity)
+    TextView titleCity;
+    @InjectView(R.id.titleWeather)
+    TextView titleWeather;
+    @InjectView(R.id.skyicons)
+    FrameLayout skyicons;
+
+    private GestureDetector gestureDetector = null;
+    private CalendarAdapter calV = null;
+    private GridView gridView = null;
+    private int year_c = 0;
+    private int month_c = 0;
 
     public CalendarActivity() {
         Time time = new Time();
@@ -74,7 +92,7 @@ public class CalendarActivity extends BaseActivity {
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-        sensibility = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, displayMetrics);
+        sensibility = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, displayMetrics);
 
         setSupportActionBar(mToolBar);
 
@@ -83,6 +101,7 @@ public class CalendarActivity extends BaseActivity {
         mToolBar.setLogoDescription("日历");
         mToolBar.setTitleTextColor(Color.WHITE);
 //        mToolBar.setNavigationIcon(R.drawable.zuojiantou);
+        mToolBar.setVisibility(View.GONE);
 
         gestureDetector = new GestureDetector(this, new MyGestureListener());
         mFlipper.removeAllViews();
@@ -93,22 +112,61 @@ public class CalendarActivity extends BaseActivity {
 
         addTextToTopTextView();
 
-        TabooProxy.fetchJSContent();
+//        TabooProxy.fetchJSContent();
+
+        setWeatherValue();
     }
 
-    private class MyGestureListener extends SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if (e1.getX() - e2.getX() > sensibility) {
-                // 像左滑动
-                enterNextMonth(null);
-                return true;
-            } else if (e1.getX() - e2.getX() < -sensibility) {
-                // 向右滑动
-                enterPrevMonth(null);
-                return true;
+    private void setWeatherValue() {
+        Weather weather = WeatherProxy.getTodayWeather();
+        if (weather != null) {
+            JSONObject weatherInfo = weather.weather_data;
+            titleCity.setText(weather.currentCity + "   " + weatherInfo.optString("weather"));
+            titleWeather.setText(weatherInfo.optString("wind") + "   " + weatherInfo.optString("temperature"));
+
+            skyicons.removeAllViews();
+
+            String viewParam = weatherInfo.optString("weather");
+            viewParam = "aaa";
+            WeatherTemplateView weatherTemplateView = null;
+            if ("晴".equals(viewParam)) {
+                weatherTemplateView = new SunView(this);
+            } else if ("多云".equals(viewParam)) {
+                weatherTemplateView = new CloudView(this);
+            } else if ("雷阵雨".equals(viewParam) || "雷阵雨伴有冰雹".equals(viewParam)) {
+                weatherTemplateView = new CloudThunderView(this);
+            } else if ("小雨".equals(viewParam) || "中雨".equals(viewParam) || "小雨转中雨".equals(viewParam)) {
+                weatherTemplateView = new CloudRainView(this);
+            } else if (viewParam != null && viewParam.contains("雪")) {
+                weatherTemplateView = new CloudSnowView(this);
+            } else if (viewParam != null && (viewParam.contains("大雨") || viewParam.contains("暴雨"))) {
+                weatherTemplateView = new CloudHvRainView(this);
+            } else{
+                weatherTemplateView = new WindView(this);
             }
-            return false;
+
+            if (weatherTemplateView != null) {
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                skyicons.addView(weatherTemplateView, layoutParams);
+            }
+
+        } else {
+            Object object = titleWeather.getTag();
+            if (object == null) {
+                titleWeather.setTag(1);
+                object = 1;
+            } else {
+                object = ((Integer) object) + 1;
+                titleWeather.setTag(object);
+            }
+            if ((Integer) object < 5) {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setWeatherValue();
+                    }
+                }, 5000);
+            }
         }
     }
 
@@ -121,7 +179,6 @@ public class CalendarActivity extends BaseActivity {
         calV = new CalendarAdapter(this, jumpMonth, year_c, month_c);
         gridView.setAdapter(calV);
         addTextToTopTextView(); // 移动到下一月后，将当月显示在头标题中
-
 
         mFlipper.addView(gridView, mFlipper.getChildCount());
         mFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left));
@@ -153,11 +210,14 @@ public class CalendarActivity extends BaseActivity {
     public void addTextToTopTextView() {
         StringBuilder textDate = new StringBuilder();
         Day showDay = calV.getShowDay();
-        textDate.append(showDay.year).append("年").append(showDay.month).append("月").append("\t");
+        textDate.append(showDay.year).append("年").append(showDay.month).append("月").append(showDay.monthDay);
         Gregorianum.setText(textDate.toString());
+
+
         StringBuilder lunarDate = new StringBuilder();
         lunarDate.append(showDay.cyclical).append(showDay.animalsYear).append("年").append(showDay.xiaMonth).append(showDay.lunar);
         Xia.setText(lunarDate.toString());
+//        Taboo taboo = TabooProxy.getTodayTaboo();
     }
 
     private void addGridView() {
@@ -193,6 +253,22 @@ public class CalendarActivity extends BaseActivity {
             }
         });
         gridView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+    }
+
+    private class MyGestureListener extends SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1.getX() - e2.getX() > sensibility) {
+                // 像左滑动
+                enterNextMonth(null);
+                return true;
+            } else if (e1.getX() - e2.getX() < -sensibility) {
+                // 向右滑动
+                enterPrevMonth(null);
+                return true;
+            }
+            return false;
+        }
     }
 
 }

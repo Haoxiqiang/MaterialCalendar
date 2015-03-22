@@ -18,9 +18,12 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import info.hxq.materialcalendar.entity.Day;
 
 public class CalendarAdapter extends BaseAdapter {
 
+    private final int normalDayColor = Color.parseColor("#FF222222");
+    private final int otherDayColor = Color.parseColor("#FFBBBBBB");
     private Context context;
     private int daysOfMonth = 0; // 某月的天数
     private int dayOfWeek = 0; // 具体某一天是星期几
@@ -28,13 +31,10 @@ public class CalendarAdapter extends BaseAdapter {
     private Day[] dayNumber = new Day[35]; // 一个gridview中的日期存入此数组中
     private SpecialCalendar sc = null;
     private LunarCalendar lc = null;
-
     private Day[] schDateTagFlag = null; // 存储当月所有的日程日期
     // 系统当前时间
     private Day sysDay;
     private Day showDay;
-    private final int normalDayColor = Color.parseColor("#FF222222");
-    private final int otherDayColor = Color.parseColor("#FFBBBBBB");
     private Drawable normalSignedDrawable;
     private Drawable otherSignedDrawable;
 
@@ -101,6 +101,7 @@ public class CalendarAdapter extends BaseAdapter {
         }
         showDay.year = stepYear;
         showDay.month = stepMonth;
+        showDay.monthDay = sysDay.monthDay;
 
         formatDay(showDay);
 
@@ -171,17 +172,6 @@ public class CalendarAdapter extends BaseAdapter {
      */
     public Day getShowDay() {
         return showDay;
-    }
-
-    static class ViewHolder {
-        @InjectView(R.id.daydesc)
-        TextView dayTV;
-        @InjectView(R.id.lunardesc)
-        TextView lunarTV;
-
-        public ViewHolder(View view) {
-            ButterKnife.inject(this, view);
-        }
     }
 
     // 得到某年的某月的天数且这月的第一天是星期几
@@ -258,5 +248,16 @@ public class CalendarAdapter extends BaseAdapter {
      */
     public int getEndPosition() {
         return (dayOfWeek + daysOfMonth + 7) - 1;
+    }
+
+    static class ViewHolder {
+        @InjectView(R.id.daydesc)
+        TextView dayTV;
+        @InjectView(R.id.lunardesc)
+        TextView lunarTV;
+
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
     }
 }

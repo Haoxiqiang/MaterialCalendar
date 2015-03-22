@@ -1,12 +1,16 @@
 package info.hxq.materialcalendar;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+
 
 /**
  * Created by haoxiqiang on 15/3/19.
  */
 public class BaseActivity extends ActionBarActivity {
+
+    protected static final Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

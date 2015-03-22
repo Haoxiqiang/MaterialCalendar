@@ -10,16 +10,8 @@ import java.util.Date;
  * @author Vincent Lee
  */
 public class LunarCalendar {
-    private int year; // 农历的年份
-    private int month;
-    private int day;
-    private String lunarMonth; // 农历的月份
-    private boolean leap;
-    public int leapMonth = 0; // 闰的是哪个月
-
     final static String chineseNumber[] = {"一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一",
             "十二"};
-    static SimpleDateFormat chineseDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
     final static long[] lunarInfo = new long[]{ //
             0x04bd8,
             0x04ae0,
@@ -138,16 +130,21 @@ public class LunarCalendar {
             0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2,
             0x049b0, //
             0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0};
-
     // 农历部分假日
     final static String[] lunarHoliday = new String[]{"0101 春节", "0115 元宵", "0505 端午", "0707 情人",
             "0715 中元", "0815 中秋", "0909 重阳", "1208 腊八", "1224 小年", "0100 除夕"};
-
     // 公历部分节假日
     final static String[] solarHoliday = new String[]{"0101 元旦", "0214 情人", "0308 妇女", "0312 植树",
             "0315 消费者权益日", "0401 愚人", "0501 劳动", "0504 青年", "0512 护士", "0601 儿童", "0607 高考",
             "0701 建党", "0801 建军", "0808 父亲", "0909 毛泽东逝世纪念", "0910 教师", "0928 孔子诞辰", "1001 国庆",
             "1006 老人", "1024 联合国日", "1112 孙中山诞辰纪念", "1220 澳门回归纪念", "1225 圣诞", "1226 毛泽东诞辰纪念"};
+    static SimpleDateFormat chineseDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+    public int leapMonth = 0; // 闰的是哪个月
+    private int year; // 农历的年份
+    private int month;
+    private int day;
+    private String lunarMonth; // 农历的月份
+    private boolean leap;
 
     // ====== 传回农历 y年的总天数
     final private static int yearDays(int y) {
@@ -188,25 +185,12 @@ public class LunarCalendar {
             return 30;
     }
 
-    // ====== 传回农历 y年的生肖
-    final public String animalsYear(int year) {
-        final String[] Animals =
-                new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
-        return Animals[(year - 4) % 12];
-    }
-
     // ====== 传入 月日的offset 传回干支, 0=甲子
     final private static String cyclicalm(int num) {
         final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
         final String[] Zhi =
                 new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
         return (Gan[num % 10] + Zhi[num % 12]);
-    }
-
-    // ====== 传入 offset 传回干支, 0=甲子
-    final public String cyclical(int year) {
-        int num = year - 1900 + 36;
-        return (cyclicalm(num));
     }
 
     public static String getChinaDayString(int day) {
@@ -220,7 +204,21 @@ public class LunarCalendar {
             return chineseTen[day / 10] + chineseNumber[n];
     }
 
+    // ====== 传回农历 y年的生肖
+    final public String animalsYear(int year) {
+        final String[] Animals =
+                new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
+        return Animals[(year - 4) % 12];
+    }
+
+    // ====== 传入 offset 传回干支, 0=甲子
+    final public String cyclical(int year) {
+        int num = year - 1900 + 36;
+        return (cyclicalm(num));
+    }
+
     /** */
+
     /**
      * 传出y年m月d日对应的农历. yearCyl3:农历年与1864的相差数 ? monCyl4:从1900年1月31日以来,闰月数
      * dayCyl5:与1900年1月31日相差的天数,再加40 ?
