@@ -1,8 +1,10 @@
-package info.hxq.materialcalendar;
+package info.hxq.materialcalendar.tool;
 
 
 import android.annotation.SuppressLint;
 import android.util.Log;
+
+import info.hxq.materialcalendar.BuildConfig;
 
 public final class ILog {
 

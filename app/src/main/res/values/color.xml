@@ -16,12 +16,12 @@
     <color name="text_color_lv3">#999999</color>
     <color name="selected_gray">#ffdbdbdb</color>
 
-    <color name="White">#FFF</color>
-    <color name="Black">#000</color>
-    <color name="Grey">#7F7F7F</color>
-    <color name="DarkGrey">#4F4F4F</color>
-    <color name="Green">#0F0</color>
-    <color name="TransparentGrey">#7F000000</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="white_pressed">#f1f1f1</color>
+
+    <color name="indigo">#3F51B5</color>
+    <color name="red">#F44336</color>
 
 
 </resources>

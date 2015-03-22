@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -40,11 +41,12 @@
                 style="@style/yearDesc"
                 android:text="乙未羊年一月二十九" />
         </LinearLayout>
+
         <FrameLayout
             android:id="@+id/skyicons"
-            android:layout_alignParentRight="true"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentRight="true"
             android:layout_gravity="right">
 
             <com.thbs.skycons.library.CloudHvRainView
@@ -55,11 +57,12 @@
                 app:isStatic="false"
                 app:strokeColor="@color/white" />
         </FrameLayout>
+
         <LinearLayout
-            android:layout_toLeftOf="@id/skyicons"
             android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/skyicons"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -67,8 +70,8 @@
                 android:id="@+id/titleCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:text="北京"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -158,4 +161,18 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    <net.i2p.android.ext.floatingactionbutton.AddFloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/semi_transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dip"
+        fab:fab_colorNormal="@color/pink"
+        fab:fab_colorPressed="@color/pink_pressed"
+        fab:fab_plusIconColor="@color/white" />
+
+
 </RelativeLayout>

@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import info.hxq.materialcalendar.ILog;
+import info.hxq.materialcalendar.tool.ILog;
 import info.hxq.materialcalendar.db.DatabaseHelper;
 import info.hxq.materialcalendar.entity.Weather;
 import info.hxq.materialcalendar.web.RQManager;

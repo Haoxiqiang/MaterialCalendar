@@ -1,4 +1,4 @@
-package info.hxq.materialcalendar;
+package info.hxq.materialcalendar.tool;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import info.hxq.materialcalendar.R;
 import info.hxq.materialcalendar.entity.Day;
 
 public class CalendarAdapter extends BaseAdapter {

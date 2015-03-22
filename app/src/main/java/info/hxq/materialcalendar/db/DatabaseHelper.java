@@ -4,8 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import info.hxq.materialcalendar.ILog;
+import info.hxq.materialcalendar.tool.ILog;
 import info.hxq.materialcalendar.base.MainApplication;
+import info.hxq.materialcalendar.proxy.MemoProxy;
 import info.hxq.materialcalendar.proxy.TabooProxy;
 import info.hxq.materialcalendar.proxy.WeatherProxy;
 
@@ -16,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //public class DatabaseHelper extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "calendar.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private static SQLiteDatabase mSQLiteDatabase = null;
 
     public DatabaseHelper(Context context) {
@@ -51,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(TabooProxy.CREATE_TABLE);
             db.execSQL(WeatherProxy.CREATE_TABLE);
+            db.execSQL(MemoProxy.CREATE_TABLE);
             ILog.e();
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -68,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ILog.e();
             TabooProxy.onUpgrade(db, oldVersion, newVersion);
             WeatherProxy.onUpgrade(db, oldVersion, newVersion);
+            MemoProxy.onUpgrade(db, oldVersion, newVersion);
             db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();

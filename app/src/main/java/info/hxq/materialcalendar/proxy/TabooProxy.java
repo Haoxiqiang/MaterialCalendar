@@ -9,14 +9,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import info.hxq.materialcalendar.ILog;
-import info.hxq.materialcalendar.base.MainApplication;
+import info.hxq.materialcalendar.tool.ILog;
 import info.hxq.materialcalendar.db.DatabaseHelper;
 import info.hxq.materialcalendar.entity.Taboo;
 import info.hxq.materialcalendar.web.RQManager;
@@ -34,7 +32,7 @@ public final class TabooProxy {
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLENAME + "(" +
-                    "\t \"date\" text(8,0) NOT NULL,\n" +
+                    "\"date\" text(8,0) NOT NULL,\n" +
                     "\t \"nongli\" text,\n" +
                     "\t \"ganzhi\" text,\n" +
                     "\t \"yi\" text,\n" +
