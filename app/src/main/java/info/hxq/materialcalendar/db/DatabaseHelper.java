@@ -14,7 +14,6 @@ import info.hxq.materialcalendar.proxy.WeatherProxy;
  * Created by haoxiqiang on 15/3/20.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-//public class DatabaseHelper extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "calendar.db";
     private static final int DATABASE_VERSION = 6;

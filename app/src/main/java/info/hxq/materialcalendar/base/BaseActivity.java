@@ -40,6 +40,7 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        MessageToast.cancelAllToast();
     }
 
 }

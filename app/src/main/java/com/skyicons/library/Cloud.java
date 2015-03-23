@@ -1,10 +1,11 @@
-package com.thbs.skycons.library;
+package com.skyicons.library;
 
 import android.graphics.Path;
 import android.graphics.PointF;
 
 /**
- * Created by administrator on 10/1/14.
+ * Just a demo
+ * TODO refactor more unused param
  */
 public class Cloud {
 

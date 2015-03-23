@@ -1,4 +1,4 @@
-package com.thbs.skycons.library;
+package com.skyicons.library;
 
 import android.content.Context;
 import android.graphics.Canvas;

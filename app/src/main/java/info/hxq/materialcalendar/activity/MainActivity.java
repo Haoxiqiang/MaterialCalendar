@@ -25,25 +25,24 @@ import android.widget.ViewFlipper;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.thbs.skycons.library.CloudHvRainView;
-import com.thbs.skycons.library.CloudRainView;
-import com.thbs.skycons.library.CloudSnowView;
-import com.thbs.skycons.library.CloudThunderView;
-import com.thbs.skycons.library.CloudView;
-import com.thbs.skycons.library.MoonView;
-import com.thbs.skycons.library.SunView;
-import com.thbs.skycons.library.WeatherTemplateView;
-import com.thbs.skycons.library.WindView;
+import com.skyicons.library.CloudHvRainView;
+import com.skyicons.library.CloudRainView;
+import com.skyicons.library.CloudSnowView;
+import com.skyicons.library.CloudThunderView;
+import com.skyicons.library.CloudView;
+import com.skyicons.library.MoonView;
+import com.skyicons.library.SunView;
+import com.skyicons.library.WeatherTemplateView;
+import com.skyicons.library.WindView;
 
 import org.json.JSONObject;
-
-import java.util.GregorianCalendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import info.hxq.materialcalendar.R;
 import info.hxq.materialcalendar.base.BaseActivity;
+import info.hxq.materialcalendar.base.MessageToast;
 import info.hxq.materialcalendar.entity.Day;
 import info.hxq.materialcalendar.entity.Weather;
 import info.hxq.materialcalendar.proxy.WeatherProxy;
@@ -127,8 +126,9 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.semi_transparent)
     public void startMain(final View v) {
-        Intent intent = new Intent(this, MemoActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MemoActivity.class);
+//        startActivity(intent);
+        MessageToast.show("Coming soon!",MessageToast.Style.INFO);
     }
 
     private void setWeatherValue() {

@@ -28,4 +28,8 @@ public final class MessageToast {
         superToast.show();
     }
 
+    public static void cancelAllToast(){
+        SuperToast.cancelAllSuperToasts();
+    }
+
 }
