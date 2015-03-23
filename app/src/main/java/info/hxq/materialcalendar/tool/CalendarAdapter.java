@@ -7,14 +7,21 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
+import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringSystem;
+import com.facebook.rebound.SpringUtil;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -142,7 +149,9 @@ public class CalendarAdapter extends BaseAdapter {
         if (convertView != null) {
             holder = (ViewHolder) convertView.getTag();
         } else {
-            convertView = LayoutInflater.from(context).inflate(R.layout.calendar_item, parent, false);
+
+            convertView =
+                    LayoutInflater.from(context).inflate(R.layout.calendar_item, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }
@@ -166,6 +175,38 @@ public class CalendarAdapter extends BaseAdapter {
         holder.lunarTV.setSelected(true);
         holder.lunarTV.setSingleLine(true);
         holder.lunarTV.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+
+        // Add a spring to the system.
+        final View view = convertView;
+        SpringSystem mSpringSystem = SpringSystem.create();
+        final Spring spring = mSpringSystem.createSpring();
+        spring.addListener(new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0.5);
+                ViewCompat.setScaleX(view, mappedValue);
+                ViewCompat.setScaleY(view, mappedValue);
+            }
+        });
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        spring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        spring.setEndValue(0);
+                        break;
+                }
+                return false;
+            }
+        });
+
         return convertView;
     }
 

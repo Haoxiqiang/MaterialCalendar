@@ -37,10 +37,8 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import info.hxq.materialcalendar.R;
 import info.hxq.materialcalendar.base.BaseFragment;
-import info.hxq.materialcalendar.base.MessageToast;
 import info.hxq.materialcalendar.entity.Day;
 import info.hxq.materialcalendar.entity.Weather;
 import info.hxq.materialcalendar.proxy.WeatherProxy;

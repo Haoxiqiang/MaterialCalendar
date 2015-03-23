@@ -3,7 +3,6 @@ package com.skyicons.library;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -14,13 +13,14 @@ import android.util.TypedValue;
  */
 public class MoonView extends WeatherTemplateView {
 
-    Path path;
     PathPoints[] pathPoints;
     float m = 0;
     float radius;
     boolean clockwise = false;
     float a = 0, b = 0, c = 0, d = 0;
     int count = 0; //counter for stopping animation
+
+    RectF mRectF = new RectF();
 
     public MoonView(Context context) {
         super(context);
@@ -41,7 +41,7 @@ public class MoonView extends WeatherTemplateView {
         int strokeWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
 
         mPaint.setStrokeWidth(strokeWidth);
-        radius = strokeWidth;
+        radius = strokeWidth * 4;
     }
 
     @Override
@@ -56,18 +56,16 @@ public class MoonView extends WeatherTemplateView {
             count += 15;
         }
 
+        mPath.reset();
 
-        path = new Path();
-
-        RectF rectF1 = new RectF();
 
         if (!clockwise) {//Anticlockwise rotation
 
             // First arc of the Moon.
-            rectF1.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
-            path.addArc(rectF1, 65 - (m / 2), 275);
+            mRectF.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
+            mPath.addArc(mRectF, 65 - (m / 2), 275);
 
-            pathPoints = getPoints(path, 1000);
+            pathPoints = getPoints(mPath, 1000);
 
             a = pathPoints[999].getX();
             b = pathPoints[999].getY();
@@ -78,10 +76,10 @@ public class MoonView extends WeatherTemplateView {
             PointF P1c2 = cubic2Points(a, b, c, d, false);
 
             // Second arc of the Moon in opposite face.
-            path.moveTo(a, b);
-            path.cubicTo(P1c1.x, P1c1.y, P1c2.x, P1c2.y, c, d);
+            mPath.moveTo(a, b);
+            mPath.cubicTo(P1c1.x, P1c1.y, P1c2.x, P1c2.y, c, d);
 
-            canvas.drawPath(path, mPaint);
+            canvas.drawPath(mPath, mPaint);
 
             m = m + 0.5f;
 
@@ -93,10 +91,10 @@ public class MoonView extends WeatherTemplateView {
         } else {//Clockwise rotation
 
             // First arc of the Moon.
-            rectF1.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
-            path.addArc(rectF1, 15 + (m / 2), 275);
+            mRectF.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
+            mPath.addArc(mRectF, 15 + (m / 2), 275);
 
-            pathPoints = getPoints(path, 1000);
+            pathPoints = getPoints(mPath, 1000);
 
             a = pathPoints[999].getX();
             b = pathPoints[999].getY();
@@ -107,10 +105,10 @@ public class MoonView extends WeatherTemplateView {
             PointF P1c2 = cubic2Points(a, b, c, d, false);
 
             // Second arc of the Moon in opposite face.
-            path.moveTo(a, b);
-            path.cubicTo(P1c1.x, P1c1.y, P1c2.x, P1c2.y, c, d);
+            mPath.moveTo(a, b);
+            mPath.cubicTo(P1c1.x, P1c1.y, P1c2.x, P1c2.y, c, d);
 
-            canvas.drawPath(path, mPaint);
+            canvas.drawPath(mPath, mPaint);
 
             m = m + 0.5f;
 

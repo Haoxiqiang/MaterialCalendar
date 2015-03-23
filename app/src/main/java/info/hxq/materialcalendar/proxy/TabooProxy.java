@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +32,8 @@ public final class TabooProxy {
     public static final String FETCHURL = "http://www.123cha.com/calendar/js/";
 
     public static final String TABLENAME = "taboo";
+
+    private static final int SAVEYEAR = 2015;
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLENAME + "(" +
@@ -56,10 +59,8 @@ public final class TabooProxy {
     }
 
     public static void fetchJSContent() {
-        Time time = new Time();
-        time.setToNow();
         RequestQueue requestQueue = RQManager.getInstance().getRequestQueue();
-        for (int i = (time.year - 10); i < (time.year + 10); i++) {
+        for (int i = (SAVEYEAR - 10); i < (SAVEYEAR + 10); i++) {
             final String datePrefix = String.valueOf(i);
             StringRequest stringRequest = new StringRequest(Method.GET, FETCHURL + datePrefix + ".js", new Response.Listener<String>() {
                 @Override
@@ -70,17 +71,6 @@ public final class TabooProxy {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-//                    try {
-//                        JSONArray resultArray = new JSONArray(result);
-//                        for (int j = 0; j < resultArray.length(); j++) {
-//                            JSONObject tabooDay = resultArray.getJSONObject(j);
-//                            if (tabooDay != null) {
-//                                insertTaboo(tabooDay, datePrefix);
-//                            }
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
                 }
             }, new Response.ErrorListener() {
 
@@ -95,8 +85,22 @@ public final class TabooProxy {
         requestQueue.start();
     }
 
-    public static void init(){
-
+    public static void init() {
+        if(SettingProxy.hasTabooInit()){
+            return;
+        }
+        for (int i = (SAVEYEAR - 10); i < (SAVEYEAR + 10); i++) {
+            final String datePrefix = String.valueOf(i);
+            try {
+                JSONArray jsonArray = AssetJSONLoad.loadJsonArray("taboo/" + datePrefix + ".json");
+                for (int j = 0; j < jsonArray.length(); i++) {
+                    insertTaboo(jsonArray.getJSONObject(j), datePrefix);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        SettingProxy.saveTabooInit();
     }
 
     public static void insertTaboo(JSONObject tabooObj, String datePrefix) throws JSONException {

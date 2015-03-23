@@ -3,6 +3,7 @@ package info.hxq.materialcalendar.tool;
 import android.content.res.AssetManager;
 import android.os.Environment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,11 +23,24 @@ import info.hxq.materialcalendar.base.MainApplication;
 public class AssetJSONLoad {
 
 
+    public static JSONArray loadJsonArray(String transId) throws JSONException, IOException {
+        AssetManager mAssetManager = MainApplication.getApplication().getAssets();
+        InputStream open = mAssetManager.open("calendar/json/" + transId);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(open));
+        String s;
+        StringBuilder sb = new StringBuilder();
+        while ((s = reader.readLine()) != null) {
+            sb.append(new String(s.getBytes(), "UTF-8"));
+        }
+        reader.close();
+        return new JSONArray(sb.toString());
+    }
+
     public static JSONObject loadJson(String transId) throws JSONException, IOException {
         AssetManager mAssetManager = MainApplication.getApplication().getAssets();
-        InputStream open = mAssetManager.open("taboo/" + transId);
+        InputStream open = mAssetManager.open("calendar/json/" + transId);
         BufferedReader reader = new BufferedReader(new InputStreamReader(open));
-        String s = "";
+        String s;
         StringBuilder sb = new StringBuilder();
         while ((s = reader.readLine()) != null) {
             sb.append(new String(s.getBytes(), "UTF-8"));
@@ -35,7 +49,7 @@ public class AssetJSONLoad {
         return new JSONObject(sb.toString());
     }
 
-    public static void json2file(String transId, String content) throws UnsupportedEncodingException, IOException {
+    public static void json2file(String transId, String content) throws IOException {
 
         File f =
                 new File(new File(Environment.getExternalStorageDirectory(), "calendar"), "json");

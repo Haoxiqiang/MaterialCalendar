@@ -18,6 +18,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
+import butterknife.ButterKnife;
 import info.hxq.materialcalendar.R;
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
@@ -48,6 +49,7 @@ public class MemoFragment extends Fragment {
     final static AccelerateDecelerateInterpolator ACCELERATE_DECELERATE = new AccelerateDecelerateInterpolator();
     final static DecelerateInterpolator DECELERATE = new DecelerateInterpolator();
 
+
     public static MemoFragment newInstance(Bundle args) {
         MemoFragment fragment = new MemoFragment();
         if (args != null) {
@@ -71,12 +73,16 @@ public class MemoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_memo, container, false);
+        View view = inflater.inflate(R.layout.fragment_memo, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         mParent = view;
         mBlue = (ImageButton) view.findViewById(R.id.transition_blue);
         mBluePair = (FrameLayout) view.findViewById(R.id.transition_blue_pair);
@@ -277,12 +283,12 @@ public class MemoFragment extends Fragment {
         }
     }
 
-    public static float centerX(View view){
-        return ViewHelper.getX(view) + view.getWidth()/2;
+    public static float centerX(View view) {
+        return ViewHelper.getX(view) + view.getWidth() / 2;
     }
 
-    public static float centerY(View view){
-        return ViewHelper.getY(view) + view.getHeight()/2;
+    public static float centerY(View view) {
+        return ViewHelper.getY(view) + view.getHeight() / 2;
     }
 }
 

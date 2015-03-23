@@ -42,7 +42,7 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="right">
 
-            <com.skyicons.library.CloudHvRainView
+            <com.skyicons.library.MoonView
                 android:id="@+id/sunview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

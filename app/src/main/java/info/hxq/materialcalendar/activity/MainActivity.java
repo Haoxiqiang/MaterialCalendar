@@ -1,15 +1,16 @@
 package info.hxq.materialcalendar.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.hxq.materialcalendar.R;
 import info.hxq.materialcalendar.base.MessageToast;
-import info.hxq.materialcalendar.proxy.TabooProxy;
+import info.hxq.materialcalendar.tool.ILog;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -17,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TabooProxy.fetchJSContent();
+        ButterKnife.inject(this);
     }
 
     @Override
@@ -43,9 +44,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @OnClick(R.id.semi_transparent)
-    public void startMain(final View v) {
+    public void startMemo(View v) {
 //        Intent intent = new Intent(this, MemoActivity.class);
 //        startActivity(intent);
+        ILog.e();
         MessageToast.show("Coming soon!", MessageToast.Style.INFO);
     }
 }
