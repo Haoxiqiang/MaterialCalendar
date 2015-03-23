@@ -10,13 +10,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import info.hxq.materialcalendar.tool.ILog;
+import java.io.IOException;
+
 import info.hxq.materialcalendar.db.DatabaseHelper;
 import info.hxq.materialcalendar.entity.Taboo;
+import info.hxq.materialcalendar.tool.AssetJSONLoad;
+import info.hxq.materialcalendar.tool.ILog;
 import info.hxq.materialcalendar.web.RQManager;
 
 import static com.android.volley.Request.Method;
@@ -53,7 +55,6 @@ public final class TabooProxy {
         }
     }
 
-
     public static void fetchJSContent() {
         Time time = new Time();
         time.setToNow();
@@ -63,18 +64,23 @@ public final class TabooProxy {
             StringRequest stringRequest = new StringRequest(Method.GET, FETCHURL + datePrefix + ".js", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    String result = response.substring(response.indexOf("=") + 1, response.length());
+                    String result = response.substring(response.indexOf("=") + 1, response.length() - 3) + "]";
                     try {
-                        JSONArray resultArray = new JSONArray(result);
-                        for (int j = 0; j < resultArray.length(); j++) {
-                            JSONObject tabooDay = resultArray.getJSONObject(j);
-                            if (tabooDay != null) {
-                                insertTaboo(tabooDay, datePrefix);
-                            }
-                        }
-                    } catch (JSONException e) {
+                        AssetJSONLoad.json2file(datePrefix + ".json", result);
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
+//                    try {
+//                        JSONArray resultArray = new JSONArray(result);
+//                        for (int j = 0; j < resultArray.length(); j++) {
+//                            JSONObject tabooDay = resultArray.getJSONObject(j);
+//                            if (tabooDay != null) {
+//                                insertTaboo(tabooDay, datePrefix);
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }, new Response.ErrorListener() {
 
@@ -87,6 +93,10 @@ public final class TabooProxy {
             requestQueue.add(stringRequest);
         }
         requestQueue.start();
+    }
+
+    public static void init(){
+
     }
 
     public static void insertTaboo(JSONObject tabooObj, String datePrefix) throws JSONException {

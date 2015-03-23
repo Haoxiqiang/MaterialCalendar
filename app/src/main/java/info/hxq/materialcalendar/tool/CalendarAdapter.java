@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.Locale;
+import java.util.TimeZone;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import info.hxq.materialcalendar.R;
@@ -30,7 +33,6 @@ public class CalendarAdapter extends BaseAdapter {
     private int dayOfWeek = 0; // 具体某一天是星期几
     private int lastDaysOfMonth = 0; // 上一个月的总天数
     private Day[] dayNumber = new Day[35]; // 一个gridview中的日期存入此数组中
-    private SpecialCalendar sc = null;
     private LunarCalendar lc = null;
     private Day[] schDateTagFlag = null; // 存储当月所有的日程日期
     // 系统当前时间
@@ -39,10 +41,11 @@ public class CalendarAdapter extends BaseAdapter {
     private Drawable normalSignedDrawable;
     private Drawable otherSignedDrawable;
 
+    private CalendarExtend mCalendarExtend = CalendarExtend.getInstance(TimeZone.getTimeZone("GMT+5"), Locale.CHINA);
+
     public CalendarAdapter(Context _context) {
         this.context = _context;
 
-        sc = new SpecialCalendar();
         lc = new LunarCalendar();
 
         Time time = new Time();
@@ -177,10 +180,9 @@ public class CalendarAdapter extends BaseAdapter {
 
     // 得到某年的某月的天数且这月的第一天是星期几
     public void getCalendar(int year, int month) {
-        boolean isLeapyear = sc.isLeapYear(year); // 是否为闰年
-        daysOfMonth = sc.getDaysOfMonth(isLeapyear, month); // 某月的总天数
-        dayOfWeek = sc.getWeekdayOfMonth(year, month); // 某月第一天为星期几
-        lastDaysOfMonth = sc.getDaysOfMonth(isLeapyear, month - 1); // 上一个月的总天数
+        daysOfMonth = mCalendarExtend.getDaysOfMonth(year, month); // 某月的总天数
+        dayOfWeek = mCalendarExtend.getWeekdayOfMonthFirstDay(year, month); // 某月第一天为星期几
+        lastDaysOfMonth = mCalendarExtend.getDaysOfMonth(year, month - 1); // 上一个月的总天数
 //        ILog.d("DAY:  isLeapyear:" + isLeapyear + "   daysOfMonth:" + daysOfMonth + "  dayOfWeek:" + dayOfWeek + "  lastDaysOfMonth:" + lastDaysOfMonth);
         getWeek(year, month);
     }

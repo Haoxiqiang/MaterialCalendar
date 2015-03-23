@@ -7,6 +7,7 @@ import android.content.Context;
 import java.util.List;
 
 import info.hxq.materialcalendar.db.DatabaseHelper;
+import info.hxq.materialcalendar.proxy.SettingProxy;
 
 /**
  * Created by haoxiqiang on 15/3/20.
@@ -24,9 +25,11 @@ public class MainApplication extends Application {
         super.onCreate();
         context = this;
 
-//        if (!isMainProcess()) {
-//            return;
-//        }
+        SettingProxy.init();
+
+        if (!isMainProcess()) {
+            return;
+        }
 
         DatabaseHelper.init();
     }

@@ -5,12 +5,16 @@
 
 # Project
 
+version 0.2
+
 * 天气的动画图标
 * 天气信息的获取
 * 日历的生成
 * 农历的计算
 
-# Coming
+# Feature
+
+version 0.3
 
 * 禁忌的展示
 * 节日的补充

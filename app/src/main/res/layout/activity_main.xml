@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.hxq.materialcalendar.activity.MainActivity">
+
+    <fragment
+        class="info.hxq.materialcalendar.fragment.CalendarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <net.i2p.android.ext.floatingactionbutton.AddFloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/semi_transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dip"
+        fab:fab_colorNormal="@color/pink"
+        fab:fab_colorPressed="@color/pink_pressed"
+        fab:fab_plusIconColor="@color/white" />
+
+</RelativeLayout>
