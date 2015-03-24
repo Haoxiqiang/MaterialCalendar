@@ -5,12 +5,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.format.Time;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import info.hxq.materialcalendar.tool.ILog;
 import info.hxq.materialcalendar.base.MessageToast;
 import info.hxq.materialcalendar.db.DatabaseHelper;
 import info.hxq.materialcalendar.entity.Memo;
@@ -86,7 +87,7 @@ public final class MemoProxy {
                                 "alarm", "remarks"}, "date = ?", new String[]{dateParam}, null,
                         null, null);
         if (cursor.getCount() == 0) {
-            ILog.e("query todayDate:" + dateParam + "  is  0");
+            Logger.e("query todayDate:" + dateParam + "  is  0");
             memos.clear();
         } else {
             try {

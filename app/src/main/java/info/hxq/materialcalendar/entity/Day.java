@@ -91,6 +91,12 @@ public class Day implements Comparable, Parcelable, Cloneable {
                 + "   cyclical:" + cyclical;
     }
 
+    public String getDate() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(year).append(month < 10 ? "0" + month : month).append(monthDay);
+        return stringBuilder.toString();
+    }
+
     @Override
     public int compareTo(@NonNull Object another) {
         //19700101

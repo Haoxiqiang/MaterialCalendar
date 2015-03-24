@@ -9,12 +9,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import info.hxq.materialcalendar.tool.ILog;
 import info.hxq.materialcalendar.db.DatabaseHelper;
 import info.hxq.materialcalendar.entity.Weather;
 import info.hxq.materialcalendar.web.RQManager;
@@ -55,7 +55,7 @@ public final class WeatherProxy {
             @Override
             public void onResponse(String response) {
                 try {
-                    ILog.e(response);
+                    Logger.json(response);
                     JSONObject result = new JSONObject(response);
                     insertWeather(result);
                 } catch (JSONException e) {
@@ -121,7 +121,7 @@ public final class WeatherProxy {
                                 "weather_data"}, "date = ?", new String[]{dateParam}, null,
                         null, null);
         if (cursor.getCount() == 0) {
-            ILog.e("query todayDate:" + dateParam + "  is  0");
+            Logger.e("query todayDate:" + dateParam + "  is  0");
             weather = null;
             fetchWeatherContent(dateParam);
         } else {

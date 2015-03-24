@@ -61,7 +61,7 @@ public class CalendarAdapter extends BaseAdapter {
         sysDay.year = time.year;
         sysDay.month = time.month + 1;
         sysDay.monthDay = time.monthDay;
-
+        formatDay(sysDay);
 
         final float radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, context.getResources().getDisplayMetrics());
 
@@ -176,37 +176,6 @@ public class CalendarAdapter extends BaseAdapter {
         holder.lunarTV.setSingleLine(true);
         holder.lunarTV.setEllipsize(TextUtils.TruncateAt.MARQUEE);
 
-        // Add a spring to the system.
-        final View view = convertView;
-        SpringSystem mSpringSystem = SpringSystem.create();
-        final Spring spring = mSpringSystem.createSpring();
-        spring.addListener(new SimpleSpringListener() {
-            @Override
-            public void onSpringUpdate(Spring spring) {
-                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0.5);
-                ViewCompat.setScaleX(view, mappedValue);
-                ViewCompat.setScaleY(view, mappedValue);
-            }
-        });
-
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // When pressed start solving the spring to 1.
-                        spring.setEndValue(1);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        // When released start solving the spring to 0.
-                        spring.setEndValue(0);
-                        break;
-                }
-                return false;
-            }
-        });
-
         return convertView;
     }
 
@@ -217,6 +186,14 @@ public class CalendarAdapter extends BaseAdapter {
      */
     public Day getShowDay() {
         return showDay;
+    }
+    /**
+     * 当天返回
+     *
+     * @return
+     */
+    public Day getSysDay() {
+        return sysDay;
     }
 
     // 得到某年的某月的天数且这月的第一天是星期几

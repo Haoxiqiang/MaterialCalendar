@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import info.hxq.materialcalendar.db.DatabaseHelper;
 import info.hxq.materialcalendar.entity.Taboo;
 import info.hxq.materialcalendar.tool.AssetJSONLoad;
-import info.hxq.materialcalendar.tool.ILog;
 import info.hxq.materialcalendar.web.RQManager;
 
 import static com.android.volley.Request.Method;
@@ -86,7 +86,7 @@ public final class TabooProxy {
     }
 
     public static void init() {
-        if(SettingProxy.hasTabooInit()){
+        if (SettingProxy.hasTabooInit()) {
             return;
         }
         for (int i = (SAVEYEAR - 10); i < (SAVEYEAR + 10); i++) {
@@ -162,7 +162,7 @@ public final class TabooProxy {
                                 "ji", "jishenyiqu", "xiongshenyiji", "taishenzhanfang", "wuxing", "chong", "pengzubaiji"}, "date = ?", new String[]{dateParam}, null,
                         null, null);
         if (cursor.getCount() == 0) {
-            ILog.e("query todayDate:" + dateParam + "  is  0");
+            Logger.e("query todayDate:" + dateParam + "  is  0");
             taboo = null;
         } else {
             cursor.moveToFirst();

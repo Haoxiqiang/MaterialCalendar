@@ -42,7 +42,7 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="right">
 
-            <com.skyicons.library.MoonView
+            <com.skyicons.library.SunView
                 android:id="@+id/sunview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -151,6 +151,125 @@
                 android:layout_marginRight="1.5dip"
                 android:background="@drawable/global_shadow_fade_bottom" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_below="@id/calendar_flipper"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:layout_height="128dip">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/day"
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:layout_alignParentLeft="true"
+                        android:textSize="30sp"
+                        android:text="25"
+                        android:layout_centerVertical="true"
+                        android:textColor="?colorAccent" />
+
+                    <LinearLayout
+                        android:id="@+id/dayContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@id/day"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/lunarDay"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            android:textSize="16sp"
+                            android:text="二月初五"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/weekDay"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            android:textSize="16sp"
+                            android:text="周二"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="世界防治结核病日"
+                        android:id="@+id/holiday" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_height="?actionBarSize">
+
+                    <TextView
+                        android:layout_width="24dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|left"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:text="宜"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/yiTag"
+                        android:textColor="?colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/yiTag"
+                        android:gravity="center_vertical|left"
+                        android:layout_alignTop="@id/yiTag"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:text="路昂起白轴黄河科技"
+                        android:id="@+id/yi"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="24dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|left"
+                        android:textSize="16sp"
+                        android:layout_below="@id/yiTag"
+                        android:layout_marginTop="8dip"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:text="忌"
+                        android:id="@+id/jiTag"
+                        android:textColor="?colorAccent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/jiTag"
+                        android:gravity="center_vertical|left"
+                        android:layout_alignTop="@id/jiTag"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:text="路昂起白轴黄河科技"
+                        android:id="@+id/ji"
+                        android:textColor="@color/black" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>

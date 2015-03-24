@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.orhanobut.logger.Logger;
 import com.skyicons.library.CloudHvRainView;
 import com.skyicons.library.CloudRainView;
 import com.skyicons.library.CloudSnowView;
@@ -40,10 +41,11 @@ import butterknife.InjectView;
 import info.hxq.materialcalendar.R;
 import info.hxq.materialcalendar.base.BaseFragment;
 import info.hxq.materialcalendar.entity.Day;
+import info.hxq.materialcalendar.entity.Taboo;
 import info.hxq.materialcalendar.entity.Weather;
+import info.hxq.materialcalendar.proxy.TabooProxy;
 import info.hxq.materialcalendar.proxy.WeatherProxy;
 import info.hxq.materialcalendar.tool.CalendarAdapter;
-import info.hxq.materialcalendar.tool.ILog;
 
 
 /**
@@ -72,6 +74,19 @@ public class CalendarFragment extends BaseFragment {
     TextView titleWeather;
     @InjectView(R.id.skyicons)
     FrameLayout skyicons;
+
+    @InjectView(R.id.day)
+    TextView day;
+    @InjectView(R.id.lunarDay)
+    TextView lunarDay;
+    @InjectView(R.id.weekDay)
+    TextView weekDay;
+    @InjectView(R.id.holiday)
+    TextView holiday;
+    @InjectView(R.id.yi)
+    TextView yi;
+    @InjectView(R.id.ji)
+    TextView ji;
 
     private GestureDetector gestureDetector = null;
     private CalendarAdapter calV = null;
@@ -114,6 +129,22 @@ public class CalendarFragment extends BaseFragment {
 
         addTextToTopTextView();
         setWeatherValue();
+        setTodayLunarInfo(calV.getSysDay());
+    }
+
+    private void setTodayLunarInfo(Day _day) {
+        Logger.e(_day.toString());
+        Taboo taboo = TabooProxy.getTabooByDate(_day.getDate());
+        Logger.e(String.valueOf(taboo));
+        if (taboo != null) {
+            String nongli = taboo.nongli;
+            String[] gonglis = nongli.split(" ");
+            day.setText(gonglis[0].substring(gonglis.length - 3, gonglis.length -1));
+            lunarDay.setText(_day.lunar);
+            weekDay.setText(gonglis[2]);
+            yi.setText(taboo.yi);
+            ji.setText(taboo.ji);
+        }
     }
 
     private void setWeatherValue() {
@@ -252,7 +283,8 @@ public class CalendarFragment extends BaseFragment {
                 int endPosition = calV.getEndPosition();
                 if (startPosition <= position + 7 && position <= endPosition - 7) {
                     Day clickDay = calV.getItem(position);
-                    ILog.i("clickDay: " + clickDay.toString());
+                    Logger.d(clickDay.toString(), 2);
+                    setTodayLunarInfo(clickDay);
 //                    Toast.makeText(CalendarActivity.this, clickDay.toString(), Toast.LENGTH_SHORT).show();
                 }
             }

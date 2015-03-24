@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Environment;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,7 +47,7 @@ public class StorageUtils {
 
         if (appCacheDir == null) {
             String cacheDirPath = "/data/data/" + context.getPackageName() + "/cache/";
-            ILog.w("Can't define system cache directory! '%s' will be used." + cacheDirPath);
+            Logger.w("Can't define system cache directory! '%s' will be used." + cacheDirPath);
             appCacheDir = new File(cacheDirPath);
         }
 
@@ -80,13 +82,13 @@ public class StorageUtils {
                 new File(new File(Environment.getExternalStorageDirectory(), "tifen"), type);
         if (!appCacheDir.exists()) {
             if (!appCacheDir.mkdirs()) {
-                ILog.w("Unable to create external cache directory");
+                Logger.w("Unable to create external cache directory");
                 return null;
             }
             try {
                 new File(appCacheDir, ".nomedia").createNewFile();
             } catch (IOException e) {
-                ILog.i("Can't create \".nomedia\" file in application external cache directory");
+                Logger.i("Can't create \".nomedia\" file in application external cache directory");
             }
         }
         return appCacheDir;
