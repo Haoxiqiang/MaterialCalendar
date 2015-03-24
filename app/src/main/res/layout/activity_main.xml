@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     tools:context="info.hxq.materialcalendar.activity.MainActivity">
 
-    <fragment
-        class="info.hxq.materialcalendar.fragment.CalendarFragment"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

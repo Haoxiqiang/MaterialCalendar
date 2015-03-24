@@ -56,26 +56,7 @@ public abstract class WeatherTemplateView extends View {
         mPaint.setStrokeWidth((float) (0.02083 * width));
     }
 
-   static class PathPoints {
-
-        float x, y;
-
-        public PathPoints(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public float getX() {
-            return x;
-        }
-
-        public float getY() {
-            return y;
-        }
-
-    }
-
-    protected PathPoints[] getPoints(Path path,int size) {
+    protected PathPoints[] getPoints(Path path, int size) {
 
         //Size of 100 indicates that, 100 points
         // would be extracted from the path
@@ -95,5 +76,24 @@ public abstract class WeatherTemplateView extends View {
         }
 
         return pointArray;
+    }
+
+    static class PathPoints {
+
+        float x, y;
+
+        public PathPoints(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public float getX() {
+            return x;
+        }
+
+        public float getY() {
+            return y;
+        }
+
     }
 }

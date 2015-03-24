@@ -60,7 +60,7 @@ public class CloudSnowView extends WeatherTemplateView {
         paintSnow.setAntiAlias(true);
         paintSnow.setStrokeCap(Paint.Cap.ROUND);
         paintSnow.setStyle(Paint.Style.STROKE);
-        paintSnow.setStrokeWidth(strokeWidth/3);
+        paintSnow.setStrokeWidth(strokeWidth / 3);
 
         cloud = new Cloud();
         pathCircle1 = new Path();
@@ -113,7 +113,7 @@ public class CloudSnowView extends WeatherTemplateView {
             cubicPath11.moveTo(x1, y1);
             cubicPath11.cubicTo(x1 - width * 0.06f, y1 + h1 * 0.3f, x1 - width * 0.12f,
                     y1 + h1 * 0.7f, x1 - width * 0.18f, y1 + h1 * 1.1f);
-            pathPoints11 = getPoints(cubicPath11,100);
+            pathPoints11 = getPoints(cubicPath11, 100);
 
             // Store path coordinates for snow fall 2
             cubicPath12 = new Path();
@@ -121,14 +121,14 @@ public class CloudSnowView extends WeatherTemplateView {
             cubicPath12.moveTo(x, y1);
             cubicPath12.cubicTo(x + width * 0.06f, y1 + h1 * 0.3f, x + width * 0.1f,
                     y1 + h1 * 0.7f, x - width * 0.03f, y1 + h1 * 1.1f);
-            pathPoints12 = getPoints(cubicPath12,100);
+            pathPoints12 = getPoints(cubicPath12, 100);
 
             // Store path coordinates for snow fall 3
             cubicPath21 = new Path();
             cubicPath21.moveTo(x2, y2);
             cubicPath21.cubicTo(x2 + width * 0.06f, y2 + h1 * 0.3f, x2 + width * 0.12f,
                     y2 + h1 * 0.7f, x2 + width * 0.18f, y2 + h1 * 1.1f);
-            pathPoints21 = getPoints(cubicPath21,100);
+            pathPoints21 = getPoints(cubicPath21, 100);
 
             // Store path coordinates for snow fall 4
             cubicPath22 = new Path();
@@ -136,7 +136,7 @@ public class CloudSnowView extends WeatherTemplateView {
             cubicPath22.moveTo(xx, y2);
             cubicPath22.cubicTo(xx - width * 0.06f, y2 + h1 * 0.3f, xx - width * 0.1f,
                     y2 + h1 * 0.6f, xx + width * 0.03f, y2 + h1 * 1.1f);
-            pathPoints22 = getPoints(cubicPath22,100);
+            pathPoints22 = getPoints(cubicPath22, 100);
 
             pointsStored = true;
         }
@@ -149,7 +149,7 @@ public class CloudSnowView extends WeatherTemplateView {
             pathCircle2 = new Path();
             pathCircle2.addCircle(pathPoints12[x].getX(), pathPoints12[x].getY(),
                     width * 0.03f, Path.Direction.CW);
-            pointsCircle12 = getPoints(pathCircle2,100);
+            pointsCircle12 = getPoints(pathCircle2, 100);
 
             //2nd drop
             path21 = new Path();
@@ -191,7 +191,7 @@ public class CloudSnowView extends WeatherTemplateView {
             pathCircle2 = new Path();
             pathCircle2.addCircle(pathPoints22[y].getX(), pathPoints22[y].getY(),
                     width * 0.03f, Path.Direction.CW);
-            pointsCircle22 = getPoints(pathCircle2,100);
+            pointsCircle22 = getPoints(pathCircle2, 100);
 
             //2nd drop
             path21 = new Path();
@@ -236,7 +236,7 @@ public class CloudSnowView extends WeatherTemplateView {
                 pathCircle1 = new Path();
                 pathCircle1.addCircle(pathPoints11[m].getX(), pathPoints11[m].getY(),
                         width * 0.03f, Path.Direction.CW);
-                pointsCircle11 = getPoints(pathCircle1,100);
+                pointsCircle11 = getPoints(pathCircle1, 100);
 
                 //1st drop
                 path11 = new Path();
@@ -280,7 +280,7 @@ public class CloudSnowView extends WeatherTemplateView {
                     pathCircle2 = new Path();
                     pathCircle2.addCircle(pathPoints12[n].getX(), pathPoints12[n].getY(),
                             width * 0.03f, Path.Direction.CW);
-                    pointsCircle12 = getPoints(pathCircle2,100);
+                    pointsCircle12 = getPoints(pathCircle2, 100);
 
                     //2nd drop
                     path21 = new Path();
@@ -348,7 +348,7 @@ public class CloudSnowView extends WeatherTemplateView {
                 pathCircle2 = new Path();
                 pathCircle2.addCircle(pathPoints12[n].getX(), pathPoints12[n].getY(),
                         width * 0.03f, Path.Direction.CW);
-                pointsCircle12 = getPoints(pathCircle2,100);
+                pointsCircle12 = getPoints(pathCircle2, 100);
 
                 //2nd drop
                 path21 = new Path();
@@ -413,7 +413,7 @@ public class CloudSnowView extends WeatherTemplateView {
                 pathCircle1 = new Path();
                 pathCircle1.addCircle(pathPoints21[m].getX(), pathPoints21[m].getY(),
                         width * 0.03f, Path.Direction.CW);
-                pointsCircle21 = getPoints(pathCircle1,100);
+                pointsCircle21 = getPoints(pathCircle1, 100);
 
                 //1st drop
                 path11 = new Path();
@@ -457,7 +457,7 @@ public class CloudSnowView extends WeatherTemplateView {
                     pathCircle2 = new Path();
                     pathCircle2.addCircle(pathPoints22[n].getX(), pathPoints22[n].getY(),
                             width * 0.03f, Path.Direction.CW);
-                    pointsCircle22 = getPoints(pathCircle2,100);
+                    pointsCircle22 = getPoints(pathCircle2, 100);
 
                     //2nd drop
                     path21 = new Path();
@@ -521,7 +521,7 @@ public class CloudSnowView extends WeatherTemplateView {
                 pathCircle2 = new Path();
                 pathCircle2.addCircle(pathPoints22[n].getX(), pathPoints22[n].getY(),
                         width * 0.03f, Path.Direction.CW);
-                pointsCircle22 = getPoints(pathCircle2,100);
+                pointsCircle22 = getPoints(pathCircle2, 100);
 
                 //2nd drop
                 path21 = new Path();

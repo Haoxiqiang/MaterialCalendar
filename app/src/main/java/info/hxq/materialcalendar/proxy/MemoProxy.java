@@ -25,18 +25,18 @@ public final class MemoProxy {
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLENAME + "(" +
-                    "date text(8,0) NOT NULL," +
-                    "type text," +
-                    "title text," +
-                    "timestamp text," +
-                    "alarm text," +
-                    "remarks text," +
+                    "'date' text(8,0) NOT NULL," +
+                    "'type' text," +
+                    "'title' text," +
+                    "'timestamp' text," +
+                    "'alarm' text," +
+                    "'remarks' text," +
                     "PRIMARY KEY(date)" +
                     ");";
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
-            db.execSQL("DROP TABLE IF EXISTS" + TABLENAME + ";");
+        if (newVersion < DatabaseHelper.DATABASE_VERSION) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME + ";");
             db.execSQL(CREATE_TABLE);
         }
     }

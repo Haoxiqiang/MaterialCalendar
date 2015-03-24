@@ -7,21 +7,14 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
-import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.facebook.rebound.SimpleSpringListener;
-import com.facebook.rebound.Spring;
-import com.facebook.rebound.SpringSystem;
-import com.facebook.rebound.SpringUtil;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -124,7 +117,7 @@ public class CalendarAdapter extends BaseAdapter {
         int leapMonthStatus = lc.leapMonth(day.year);
         day.leapMonth = (((leapMonthStatus == 0) || (leapMonthStatus == -1)) ? "" : lc.getChineseMonth(leapMonthStatus));
         day.cyclical = lc.cyclical(day.year);
-        day.lunar = lc.getLunarDate(day.year, day.month, 1, true);
+        day.lunar = lc.getLunarDate(day.year, day.month, day.monthDay, true);
         day.xiaMonth = lc.getLunarMonth();
     }
 
@@ -187,6 +180,7 @@ public class CalendarAdapter extends BaseAdapter {
     public Day getShowDay() {
         return showDay;
     }
+
     /**
      * 当天返回
      *

@@ -36,6 +36,8 @@ import com.skyicons.library.WindView;
 
 import org.json.JSONObject;
 
+import java.util.GregorianCalendar;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import info.hxq.materialcalendar.R;
@@ -79,14 +81,14 @@ public class CalendarFragment extends BaseFragment {
     TextView day;
     @InjectView(R.id.lunarDay)
     TextView lunarDay;
-    @InjectView(R.id.weekDay)
-    TextView weekDay;
     @InjectView(R.id.holiday)
     TextView holiday;
     @InjectView(R.id.yi)
     TextView yi;
     @InjectView(R.id.ji)
     TextView ji;
+    @InjectView(R.id.lunarContainer)
+    View lunarContainer;
 
     private GestureDetector gestureDetector = null;
     private CalendarAdapter calV = null;
@@ -137,14 +139,17 @@ public class CalendarFragment extends BaseFragment {
         Taboo taboo = TabooProxy.getTabooByDate(_day.getDate());
         Logger.e(String.valueOf(taboo));
         if (taboo != null) {
-            String nongli = taboo.nongli;
-            String[] gonglis = nongli.split(" ");
-            day.setText(gonglis[0].substring(gonglis.length - 3, gonglis.length -1));
+            lunarContainer.setVisibility(View.VISIBLE);
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            gregorianCalendar.set(_day.year, _day.month - 1, _day.monthDay);
+            day.setText(String.valueOf(_day.monthDay));
             lunarDay.setText(_day.lunar);
-            weekDay.setText(gonglis[2]);
             yi.setText(taboo.yi);
             ji.setText(taboo.ji);
+        } else {
+            lunarContainer.setVisibility(View.GONE);
         }
+        holiday.setVisibility(View.GONE);
     }
 
     private void setWeatherValue() {

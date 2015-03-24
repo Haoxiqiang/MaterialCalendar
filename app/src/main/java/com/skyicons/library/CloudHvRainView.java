@@ -21,7 +21,7 @@ public class CloudHvRainView extends WeatherTemplateView {
     double radius1, radius2;
     Cloud cloud;
     private Path path1, path2, path3;
-    private double count=0;
+    private double count = 0;
 
     public CloudHvRainView(Context context) {
         super(context);
@@ -50,7 +50,7 @@ public class CloudHvRainView extends WeatherTemplateView {
         paintRain.setAntiAlias(true);
         paintRain.setStrokeCap(Paint.Cap.ROUND);
         paintRain.setStyle(Paint.Style.FILL_AND_STROKE);
-        paintRain.setStrokeWidth(strokeWidth/2);
+        paintRain.setStrokeWidth(strokeWidth / 2);
 
         cloud = new Cloud();
 

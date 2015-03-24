@@ -5,20 +5,21 @@
 
 # Project
 
-version 0.2
+version 0.3
 
 * 天气的动画图标
 * 天气信息的获取
 * 日历的生成
 * 农历的计算
+* 禁忌的展示
 
 # Feature
 
-version 0.3
+version 0.4
 
-* 禁忌的展示
 * 节日的补充
 * 备忘的添加
+* 性能的优化
 
 #Thanks
 

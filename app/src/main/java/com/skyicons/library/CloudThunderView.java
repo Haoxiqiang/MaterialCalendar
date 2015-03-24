@@ -79,7 +79,7 @@ public class CloudThunderView extends WeatherTemplateView {
         thPath.lineTo(centerX + (centerX * 0.03f), startHeight + (startHeight * 0.15f));
         thPath.lineTo(centerX - (centerX * 0.08f), startHeight + (startHeight * 0.3f));
 
-        leftPoints = getPoints(thPath,100);
+        leftPoints = getPoints(thPath, 100);
 
         if (ctr <= 98) {
 

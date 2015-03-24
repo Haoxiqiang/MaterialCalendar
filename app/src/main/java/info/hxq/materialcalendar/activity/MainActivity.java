@@ -18,6 +18,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import info.hxq.materialcalendar.R;
 import info.hxq.materialcalendar.base.MessageToast;
+import info.hxq.materialcalendar.fragment.CalendarFragment;
+import info.hxq.materialcalendar.proxy.TabooProxy;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -29,6 +31,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+
+        TabooProxy.init();
+
+        getSupportFragmentManager().beginTransaction().add(R.id.container, new CalendarFragment()).commit();
 
         SpringSystem mSpringSystem = SpringSystem.create();
         final Spring spring = mSpringSystem.createSpring();

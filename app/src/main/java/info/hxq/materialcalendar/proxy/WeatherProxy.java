@@ -26,25 +26,22 @@ import static com.android.volley.Request.Method;
  */
 public final class WeatherProxy {
 
+    public static final String TABLENAME = "weather";
+    public static final String CREATE_TABLE =
+            "CREATE TABLE " + TABLENAME + "(" +
+                    "'date' text(8,0) PRIMARY KEY NOT NULL," +
+                    "'currentCity' text," +
+                    "'pm25' text," +
+                    "'info' text," +
+                    "'weather_data' text" +
+                    ");";
     private static final String WEATHERURL = "http://api.map.baidu.com/telematics/v3/weather?" +
             "location=北京&output=json&ak=2gbq3O7pe0QC5tuFnURSG6ZF" +
             "&mcode=AF:81:5F:33:1B:83:07:21:E4:AB:9F:4D:31:BB:BE:FE:42:B3:E4:31;info.hxq.materialcalendar";
 
-    public static final String TABLENAME = "weather";
-
-    public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLENAME + "(" +
-                    "date text(8,0) NOT NULL," +
-                    "currentCity text," +
-                    "pm25 text," +
-                    "info text," +
-                    "weather_data text," +
-                    "PRIMARY KEY(date)" +
-                    ");";
-
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
-            db.execSQL("DROP TABLE IF EXISTS" + TABLENAME + ";");
+        if (newVersion < DatabaseHelper.DATABASE_VERSION) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME + ";");
             db.execSQL(CREATE_TABLE);
         }
     }

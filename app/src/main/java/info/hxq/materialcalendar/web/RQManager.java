@@ -25,6 +25,10 @@ public final class RQManager {
         return mInstance;
     }
 
+    public static void stop() {
+        getInstance().getRequestQueue().stop();
+    }
+
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
@@ -36,10 +40,6 @@ public final class RQManager {
 
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
-    }
-
-    public static void stop(){
-        getInstance().getRequestQueue().stop();
     }
 
 }

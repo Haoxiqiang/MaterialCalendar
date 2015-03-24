@@ -3,8 +3,6 @@ package info.hxq.materialcalendar.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.JsonArray;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

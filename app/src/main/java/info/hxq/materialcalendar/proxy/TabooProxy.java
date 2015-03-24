@@ -17,6 +17,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import inaka.com.tinytask.DoThis;
+import inaka.com.tinytask.Something;
+import inaka.com.tinytask.TinyTask;
 import info.hxq.materialcalendar.db.DatabaseHelper;
 import info.hxq.materialcalendar.entity.Taboo;
 import info.hxq.materialcalendar.tool.AssetJSONLoad;
@@ -32,28 +35,26 @@ public final class TabooProxy {
     public static final String FETCHURL = "http://www.123cha.com/calendar/js/";
 
     public static final String TABLENAME = "taboo";
-
-    private static final int SAVEYEAR = 2015;
-
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLENAME + "(" +
-                    "\"date\" text(8,0) NOT NULL,\n" +
-                    "\t \"nongli\" text,\n" +
-                    "\t \"ganzhi\" text,\n" +
-                    "\t \"yi\" text,\n" +
-                    "\t \"ji\" text,\n" +
-                    "\t \"jishenyiqu\" text,\n" +
-                    "\t \"xiongshenyiji\" text,\n" +
-                    "\t \"taishenzhanfang\" text,\n" +
-                    "\t \"wuxing\" text,\n" +
-                    "\t \"chong\" text,\n" +
-                    "\t \"pengzubaiji\" text,\n" +
-                    "PRIMARY KEY(\"date\")\n" +
+                    "'date' text(8,0) NOT NULL," +
+                    "'nongli' text," +
+                    "'ganzhi' text," +
+                    "'yi' text," +
+                    "'ji' text," +
+                    "'jishenyiqu' text," +
+                    "'xiongshenyiji' text," +
+                    "'taishenzhanfang' text," +
+                    "'wuxing' text," +
+                    "'chong' text," +
+                    "'pengzubaiji' text," +
+                    "PRIMARY KEY(date)" +
                     ");";
+    private static final int SAVEYEAR = 2015;
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
-            db.execSQL("DROP TABLE IF EXISTS" + TABLENAME + ";");
+        if (newVersion < DatabaseHelper.DATABASE_VERSION) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME + ";");
             db.execSQL(CREATE_TABLE);
         }
     }
@@ -89,17 +90,48 @@ public final class TabooProxy {
         if (SettingProxy.hasTabooInit()) {
             return;
         }
-        for (int i = (SAVEYEAR - 10); i < (SAVEYEAR + 10); i++) {
-            final String datePrefix = String.valueOf(i);
-            try {
-                JSONArray jsonArray = AssetJSONLoad.loadJsonArray("taboo/" + datePrefix + ".json");
-                for (int j = 0; j < jsonArray.length(); i++) {
-                    insertTaboo(jsonArray.getJSONObject(j), datePrefix);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+        try {
+            JSONArray jsonArray = AssetJSONLoad.loadJsonArray("taboo/" + SAVEYEAR + ".json");
+            for (int j = 0; j < jsonArray.length(); j++) {
+                insertTaboo(jsonArray.getJSONObject(j), String.valueOf(SAVEYEAR));
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        TinyTask.perform(new Something<String>() {
+            @Override
+            public String whichDoes() {
+                for (int i = (SAVEYEAR - 10); i < (SAVEYEAR + 10); i++) {
+                    if (SAVEYEAR == i) {
+                        continue;
+                    }
+                    final String datePrefix = String.valueOf(i);
+                    try {
+                        JSONArray jsonArray = AssetJSONLoad.loadJsonArray("taboo/" + datePrefix + ".json");
+                        for (int j = 0; j < jsonArray.length(); j++) {
+                            insertTaboo(jsonArray.getJSONObject(j), datePrefix);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return "success";
+            }
+
+        }).whenDone(new DoThis<String>() {
+            @Override
+            public void ifOK(String result) {
+                Logger.i(result);
+            }
+
+            @Override
+            public void ifNotOK(Exception e) {
+                Logger.e(e);
+            }
+        }).go();
+
         SettingProxy.saveTabooInit();
     }
 
@@ -156,6 +188,7 @@ public final class TabooProxy {
 
     public static Taboo getTabooByDate(String dateParam) {
         Taboo taboo;
+        Logger.e("dateParam:" + dateParam);
         SQLiteDatabase db = DatabaseHelper.getDatabase();
         Cursor cursor =
                 db.query(TABLENAME, new String[]{"date", "nongli", "ganzhi", "yi",

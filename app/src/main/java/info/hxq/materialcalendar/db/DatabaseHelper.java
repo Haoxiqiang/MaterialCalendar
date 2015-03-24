@@ -16,8 +16,8 @@ import info.hxq.materialcalendar.proxy.WeatherProxy;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final int DATABASE_VERSION = 10;
     private static final String DATABASE_NAME = "calendar.db";
-    private static final int DATABASE_VERSION = 6;
     private static SQLiteDatabase mSQLiteDatabase = null;
 
     public DatabaseHelper(Context context) {

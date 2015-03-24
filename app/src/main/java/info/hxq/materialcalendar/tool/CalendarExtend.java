@@ -6,91 +6,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class CalendarExtend extends GregorianCalendar {
-    /**
-     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
-     * default {@code Locale} and default {@code TimeZone}, set to the current date and time.
-     */
-    public static synchronized CalendarExtend getInstance() {
-        return getInstance(TimeZone.getDefault(), Locale.getDefault());
-    }
-
-    /**
-     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
-     * given {@code Locale} and default {@code TimeZone}, set to the current date and time.
-     */
-    public static synchronized CalendarExtend getInstance(Locale locale) {
-        return getInstance(TimeZone.getDefault(), locale);
-    }
-
-    /**
-     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
-     * default {@code Locale} and given {@code TimeZone}, set to the current date and time.
-     */
-    public static synchronized CalendarExtend getInstance(TimeZone timezone) {
-        return getInstance(timezone, Locale.getDefault());
-    }
-
-    /**
-     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
-     * given {@code Locale} and given {@code TimeZone}, set to the current date and time.
-     */
-    public static synchronized CalendarExtend getInstance(TimeZone timezone, Locale locale) {
-        return new CalendarExtend(timezone, locale);
-    }
-
-    public CalendarExtend(TimeZone timezone, Locale locale) {
-        super(timezone, locale);
-        setTimeInMillis(System.currentTimeMillis());
-    }
-
-    /**
-     * @param year
-     * @param month
-     * @return
-     */
-
-    public int getDaysOfMonth(int year, int month) {
-        int daycount = 0;
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                daycount = 31;
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                daycount = 30;
-                break;
-            case 2:
-                if (isLeapYear(year)) {
-                    daycount = 29;
-                } else {
-                    daycount = 28;
-                }
-
-        }
-        return daycount;
-    }
-
-    /**
-     * get the weekday by year-month
-     *
-     * @param year
-     * @param month
-     * @return
-     */
-    public int getWeekdayOfMonthFirstDay(int year, int month) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month - 1, 1);
-        return cal.get(Calendar.DAY_OF_WEEK) - 1;
-    }
-
     private static final String CHINESENUMBER[] = {"一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"};
     private static final String[] ANIMALS = new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
     private static final String[] HEAVENLY = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
@@ -98,7 +13,6 @@ public class CalendarExtend extends GregorianCalendar {
     private static final String[] SOLARTERM = new String[]{"小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至",
             "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至"};
     private static final String[] PREFIX = new String[]{"初", "十", "廿", "卅", "□"};
-
     private static final long[] LUNARARRAY = new long[]{
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
             0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
@@ -116,7 +30,6 @@ public class CalendarExtend extends GregorianCalendar {
             0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
             0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0,
             0x14b63};
-
     //国历节日 *表示放假日
     private static final String[] HOLIDAYS = new String[]{
             "0101*元旦&元旦 新年",
@@ -271,7 +184,6 @@ public class CalendarExtend extends GregorianCalendar {
             "1225 圣诞节&圣诞节",
             "1226 &毛泽东诞辰纪念日&节礼日",
             "1229 &国际生物多样性日"};
-
     //农历节日 *表示放假日
     private static final String[] FESTIVE = new String[]{
             "0101*春节&春节 大年初一",
@@ -285,7 +197,6 @@ public class CalendarExtend extends GregorianCalendar {
             "1208 腊八节&腊八节",
             "1223 小年&小年",
             "0100*除夕&除夕"};
-
     //某月的第几个星期几
     private static final String[] SPECIALFESTIVE = new String[]{
             "0150 &世界麻风日", //一月的最后一个星期日（月倒数第一个星期日）
@@ -308,6 +219,91 @@ public class CalendarExtend extends GregorianCalendar {
             "1024 &世界视觉日",
             "1144 感恩节&感恩节",
             "1220 &国际儿童电视广播日"};
+
+    public CalendarExtend(TimeZone timezone, Locale locale) {
+        super(timezone, locale);
+        setTimeInMillis(System.currentTimeMillis());
+    }
+
+    /**
+     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
+     * default {@code Locale} and default {@code TimeZone}, set to the current date and time.
+     */
+    public static synchronized CalendarExtend getInstance() {
+        return getInstance(TimeZone.getDefault(), Locale.getDefault());
+    }
+
+    /**
+     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
+     * given {@code Locale} and default {@code TimeZone}, set to the current date and time.
+     */
+    public static synchronized CalendarExtend getInstance(Locale locale) {
+        return getInstance(TimeZone.getDefault(), locale);
+    }
+
+    /**
+     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
+     * default {@code Locale} and given {@code TimeZone}, set to the current date and time.
+     */
+    public static synchronized CalendarExtend getInstance(TimeZone timezone) {
+        return getInstance(timezone, Locale.getDefault());
+    }
+
+    /**
+     * Constructs a new instance of the {@code Calendar} subclass appropriate for the
+     * given {@code Locale} and given {@code TimeZone}, set to the current date and time.
+     */
+    public static synchronized CalendarExtend getInstance(TimeZone timezone, Locale locale) {
+        return new CalendarExtend(timezone, locale);
+    }
+
+    /**
+     * @param year
+     * @param month
+     * @return
+     */
+
+    public int getDaysOfMonth(int year, int month) {
+        int daycount = 0;
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                daycount = 31;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                daycount = 30;
+                break;
+            case 2:
+                if (isLeapYear(year)) {
+                    daycount = 29;
+                } else {
+                    daycount = 28;
+                }
+
+        }
+        return daycount;
+    }
+
+    /**
+     * get the weekday by year-month
+     *
+     * @param year
+     * @param month
+     * @return
+     */
+    public int getWeekdayOfMonthFirstDay(int year, int month) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month - 1, 1);
+        return cal.get(Calendar.DAY_OF_WEEK) - 1;
+    }
 
     /**
      * 传回农历 y年的总天数

@@ -2,7 +2,10 @@ package info.hxq.materialcalendar.base;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
+
+import info.hxq.materialcalendar.BuildConfig;
 
 
 /**
@@ -14,6 +17,10 @@ public class BaseActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog()
+                    .penaltyDeath().build());
+        }
         super.onCreate(savedInstanceState);
     }
 

@@ -28,27 +28,45 @@ import io.codetail.animation.arcanimator.Side;
 
 public class MemoFragment extends Fragment {
 
-    View mParent;
-    ImageButton mBlue;
-    FrameLayout mBluePair;
-
-    ImageButton mRed;
-
-    float startBlueX;
-    float startBlueY;
-
-    int endBlueX;
-    int endBlueY;
-
-    float startRedX;
-    float startRedY;
-
-    int startBluePairBottom;
-
     final static AccelerateInterpolator ACCELERATE = new AccelerateInterpolator();
     final static AccelerateDecelerateInterpolator ACCELERATE_DECELERATE = new AccelerateDecelerateInterpolator();
     final static DecelerateInterpolator DECELERATE = new DecelerateInterpolator();
+    View mParent;
+    ImageButton mBlue;
+    FrameLayout mBluePair;
+    ImageButton mRed;
+    float startBlueX;
+    float startBlueY;
+    int endBlueX;
+    int endBlueY;
+    View.OnClickListener mClicker = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startBlueX = centerX(mBlue);
+            startBlueY = centerY(mBlue);
 
+            endBlueX = mParent.getRight() / 2;
+            endBlueY = (int) (mParent.getBottom() * 0.8f);
+            ArcAnimator arcAnimator = ArcAnimator.createArcAnimator(mBlue, endBlueX,
+                    endBlueY, 90, Side.LEFT)
+                    .setDuration(500);
+            arcAnimator.addListener(new SimpleListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mBlue.setVisibility(View.INVISIBLE);
+                    appearBluePair();
+                }
+            });
+            arcAnimator.start();
+        }
+    };
+    float startRedX;
+    float startRedY;
+    int startBluePairBottom;
+
+    public MemoFragment() {
+        // Required empty public constructor
+    }
 
     public static MemoFragment newInstance(Bundle args) {
         MemoFragment fragment = new MemoFragment();
@@ -58,8 +76,12 @@ public class MemoFragment extends Fragment {
         return fragment;
     }
 
-    public MemoFragment() {
-        // Required empty public constructor
+    public static float centerX(View view) {
+        return ViewHelper.getX(view) + view.getWidth() / 2;
+    }
+
+    public static float centerY(View view) {
+        return ViewHelper.getY(view) + view.getHeight() / 2;
     }
 
     @Override
@@ -89,29 +111,6 @@ public class MemoFragment extends Fragment {
         mRed = (ImageButton) view.findViewById(R.id.transition_red);
         mBlue.setOnClickListener(mClicker);
     }
-
-    View.OnClickListener mClicker = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startBlueX = centerX(mBlue);
-            startBlueY = centerY(mBlue);
-
-            endBlueX = mParent.getRight() / 2;
-            endBlueY = (int) (mParent.getBottom() * 0.8f);
-            ArcAnimator arcAnimator = ArcAnimator.createArcAnimator(mBlue, endBlueX,
-                    endBlueY, 90, Side.LEFT)
-                    .setDuration(500);
-            arcAnimator.addListener(new SimpleListener() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mBlue.setVisibility(View.INVISIBLE);
-                    appearBluePair();
-                }
-            });
-            arcAnimator.start();
-        }
-    };
-
 
     void appearBluePair() {
         mBluePair.setVisibility(View.VISIBLE);
@@ -239,7 +238,6 @@ public class MemoFragment extends Fragment {
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-
     private static class SimpleListener implements SupportAnimator.AnimatorListener, ObjectAnimator.AnimatorListener {
 
         @Override
@@ -281,14 +279,6 @@ public class MemoFragment extends Fragment {
         public void onAnimationRepeat(Animator animation) {
 
         }
-    }
-
-    public static float centerX(View view) {
-        return ViewHelper.getX(view) + view.getWidth() / 2;
-    }
-
-    public static float centerY(View view) {
-        return ViewHelper.getY(view) + view.getHeight() / 2;
     }
 }
 

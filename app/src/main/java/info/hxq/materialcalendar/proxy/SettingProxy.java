@@ -10,21 +10,22 @@ import info.hxq.materialcalendar.base.MainApplication;
  */
 public class SettingProxy {
 
-    private static SharedPreferences mSharedPreferences;
     private static final String SPNAME = "app-setting";
+    private static SharedPreferences mSharedPreferences;
 
-    public static void init() {
+    public static SharedPreferences getInstance() {
         if (mSharedPreferences == null) {
             mSharedPreferences = MainApplication.getApplication().getSharedPreferences(SPNAME, Context.MODE_PRIVATE);
         }
+        return mSharedPreferences;
     }
 
     public static boolean hasTabooInit() {
-        return mSharedPreferences.getBoolean("taboo-init", false);
+        return getInstance().getBoolean("taboo-init", false);
     }
 
     public static void saveTabooInit() {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        SharedPreferences.Editor editor = getInstance().edit();
         editor.putBoolean("taboo-init", true);
         editor.apply();
     }

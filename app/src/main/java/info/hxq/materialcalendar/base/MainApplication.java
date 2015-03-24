@@ -3,11 +3,12 @@ package info.hxq.materialcalendar.base;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 
 import java.util.List;
 
+import info.hxq.materialcalendar.BuildConfig;
 import info.hxq.materialcalendar.db.DatabaseHelper;
-import info.hxq.materialcalendar.proxy.SettingProxy;
 
 /**
  * Created by haoxiqiang on 15/3/20.
@@ -22,15 +23,16 @@ public class MainApplication extends Application {
 
     @Override
     public void onCreate() {
+        if (BuildConfig.DEBUG) {
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog()
+                    .penaltyDeath().build());
+        }
         super.onCreate();
         context = this;
-
-        SettingProxy.init();
 
         if (!isMainProcess()) {
             return;
         }
-
         DatabaseHelper.init();
     }
 
@@ -42,12 +44,11 @@ public class MainApplication extends Application {
 
     @Override
     public void onTerminate() {
+        super.onTerminate();
         if (!isMainProcess()) {
             return;
         }
-
         DatabaseHelper.closeDatabase();
-        super.onTerminate();
     }
 
     private boolean isMainProcess() {

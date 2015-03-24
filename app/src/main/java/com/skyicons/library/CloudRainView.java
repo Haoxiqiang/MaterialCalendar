@@ -61,7 +61,7 @@ public class CloudRainView extends WeatherTemplateView {
         dRain += 5;
         dRain %= 100;
 
-        dy = centerY+20;
+        dy = centerY + 20;
 
         if (drop1) {
             dx = centerX - 20;

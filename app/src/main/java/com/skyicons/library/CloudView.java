@@ -11,6 +11,14 @@ public class CloudView extends WeatherTemplateView {
     private Cloud mCloud;
     private double count = 0;
 
+    public CloudView(Context context) {
+        super(context);
+    }
+
+    public CloudView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
     @Override
     protected void init() {
         mCloud = new Cloud();
@@ -20,14 +28,6 @@ public class CloudView extends WeatherTemplateView {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setShadowLayer(0, 0, 0, Color.BLACK);
-    }
-
-    public CloudView(Context context) {
-        super(context);
-    }
-
-    public CloudView(Context context, AttributeSet attrs) {
-        super(context, attrs);
     }
 
     @Override
