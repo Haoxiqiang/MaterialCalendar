@@ -5,7 +5,7 @@
 
 # Project
 
-version 0.3
+version 1.0
 
 * 天气的动画图标
 * 天气信息的获取
@@ -15,11 +15,13 @@ version 0.3
 
 # Feature
 
-version 0.4
+version 1.1
 
 * 节日的补充
 * 备忘的添加
 * 性能的优化
+* 天气的城市选择
+
 
 #Thanks
 

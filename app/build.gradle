@@ -33,7 +33,7 @@ android {
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = "tifen-${defaultConfig.versionCode}-${defaultConfig.versionName}}.apk"
+                def fileName = "tifen-${defaultConfig.versionCode}-${defaultConfig.versionName}.apk"
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
