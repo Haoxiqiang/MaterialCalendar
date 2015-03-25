@@ -42,7 +42,7 @@ public final class MemoProxy {
     }
 
 
-    public static boolean insertMemo(Memo memo) throws JSONException {
+    public static boolean insertMemo(Memo memo) {
         if (memo == null || memo.timestamp == null) {
             MessageToast.show("日程记录失败", MessageToast.Style.ALERT);
             return false;

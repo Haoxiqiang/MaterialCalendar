@@ -39,6 +39,8 @@ public final class WeatherProxy {
             "location=北京&output=json&ak=2gbq3O7pe0QC5tuFnURSG6ZF" +
             "&mcode=AF:81:5F:33:1B:83:07:21:E4:AB:9F:4D:31:BB:BE:FE:42:B3:E4:31;info.hxq.materialcalendar";
 
+    private static final String WE = "http://api.map.baidu.com/telematics/v3/weather?location=%E5%8C%97%E4%BA%AC&output=json&ak=2gbq3O7pe0QC5tuFnURSG6ZF&mcode=AF:81:5F:33:1B:83:07:21:E4:AB:9F:4D:31:BB:BE:FE:42:B3:E4:31;info.hxq.materialcalendar&date=20150325";
+
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (newVersion < DatabaseHelper.DATABASE_VERSION) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLENAME + ";");
@@ -48,7 +50,7 @@ public final class WeatherProxy {
 
 
     public static void fetchWeatherContent(String dateParam) {
-        StringRequest stringRequest = new StringRequest(Method.GET, WEATHERURL + "&" + dateParam, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Method.GET, WE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -56,7 +58,7 @@ public final class WeatherProxy {
                     JSONObject result = new JSONObject(response);
                     insertWeather(result);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Logger.d(e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
@@ -73,33 +75,38 @@ public final class WeatherProxy {
         requestQueue.start();
     }
 
-    public static void insertWeather(JSONObject weatherResult) throws JSONException {
+    public static void insertWeather(JSONObject weatherResult) {
         SQLiteDatabase db = DatabaseHelper.getDatabase();
-        String date = weatherResult.getString("date").replace("-", "");
+        Cursor cursor = null;
+        try {
+            String date = weatherResult.getString("date").replace("-", "");
+            cursor =
+                    db.query(TABLENAME, new String[]{"date"}, "date = ?", new String[]{date}, null,
+                            null, null);
+            if (cursor.getCount() == 0) {
+                JSONObject result = weatherResult.getJSONArray("results").getJSONObject(0);
+                String currentCity = result.getString("currentCity");
+                String pm25 = result.getString("pm25");
+                JSONArray index = result.getJSONArray("index");
+                JSONArray weather_data = result.getJSONArray("weather_data");
 
-        Cursor cursor =
-                db.query(TABLENAME, new String[]{"date"}, "date = ?", new String[]{date}, null,
-                        null, null);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("date", date);
+                contentValues.put("currentCity", currentCity);
+                contentValues.put("pm25", pm25);
+                contentValues.put("info", index.toString());
+                contentValues.put("weather_data", weather_data.getJSONObject(0).toString());
 
-        if (cursor.getCount() == 0) {
-
-            JSONObject result = weatherResult.getJSONArray("results").getJSONObject(0);
-
-            String currentCity = result.getString("currentCity");
-            String pm25 = result.getString("pm25");
-            JSONArray index = result.getJSONArray("index");
-            JSONArray weather_data = result.getJSONArray("weather_data");
-
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("date", date);
-            contentValues.put("currentCity", currentCity);
-            contentValues.put("pm25", pm25);
-            contentValues.put("info", index.toString());
-            contentValues.put("weather_data", weather_data.getJSONObject(0).toString());
-
-            db.insert(TABLENAME, null, contentValues);
+                db.insert(TABLENAME, null, contentValues);
+            }
+        } catch (Exception e) {
+            Logger.d(e.getMessage());
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
         }
-        cursor.close();
+
     }
 
     public static Weather getTodayWeather() {
@@ -118,7 +125,7 @@ public final class WeatherProxy {
                                 "weather_data"}, "date = ?", new String[]{dateParam}, null,
                         null, null);
         if (cursor.getCount() == 0) {
-            Logger.e("query todayDate:" + dateParam + "  is  0");
+            Logger.d("query todayDate:" + dateParam + "  is  0");
             weather = null;
             fetchWeatherContent(dateParam);
         } else {
@@ -134,7 +141,9 @@ public final class WeatherProxy {
                 e.printStackTrace();
             }
         }
-        cursor.close();
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
         return weather;
     }
 }

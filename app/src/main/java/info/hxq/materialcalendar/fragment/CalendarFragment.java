@@ -40,6 +40,7 @@ import java.util.GregorianCalendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import info.hxq.materialcalendar.R;
 import info.hxq.materialcalendar.base.BaseFragment;
 import info.hxq.materialcalendar.entity.Day;
@@ -48,6 +49,7 @@ import info.hxq.materialcalendar.entity.Weather;
 import info.hxq.materialcalendar.proxy.TabooProxy;
 import info.hxq.materialcalendar.proxy.WeatherProxy;
 import info.hxq.materialcalendar.tool.CalendarAdapter;
+import me.drakeet.materialdialog.MaterialDialog;
 
 
 /**
@@ -135,9 +137,7 @@ public class CalendarFragment extends BaseFragment {
     }
 
     private void setTodayLunarInfo(Day _day) {
-        Logger.e(_day.toString());
         Taboo taboo = TabooProxy.getTabooByDate(_day.getDate());
-        Logger.e(String.valueOf(taboo));
         if (taboo != null) {
             lunarContainer.setVisibility(View.VISIBLE);
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
@@ -311,5 +311,17 @@ public class CalendarFragment extends BaseFragment {
             }
             return false;
         }
+    }
+
+    @OnClick(R.id.skyicons)
+    public void showSkyIcons(View v) {
+
+        View view = LayoutInflater.from(this.getActivity()).inflate(R.layout.dialog_show_weather_view, null);
+
+        final MaterialDialog mMaterialDialog = new MaterialDialog(this.getActivity());
+        mMaterialDialog.setContentView(view)
+                .setBackground(new ColorDrawable(getResources().getColor(R.color.primary)))
+               .setCanceledOnTouchOutside(true);
+        mMaterialDialog.show();
     }
 }

@@ -98,178 +98,198 @@
             android:orientation="vertical"
             android:paddingLeft="16dip"
             android:paddingRight="16dip">
-
-            <LinearLayout
-                android:id="@+id/week"
+            <!-- A CardView that contains a TextView -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_alignParentTop="true"
-                android:background="?attr/colorAccent">
-
-                <TextView
-                    style="@style/weekName"
-                    android:text="日" />
-
-                <TextView
-                    style="@style/weekName"
-                    android:text="一" />
-
-                <TextView
-                    style="@style/weekName"
-                    android:text="二" />
-
-                <TextView
-                    style="@style/weekName"
-                    android:text="三" />
-
-                <TextView
-                    style="@style/weekName"
-                    android:text="四" />
-
-                <TextView
-                    style="@style/weekName"
-                    android:text="五" />
-
-                <TextView
-                    style="@style/weekName"
-                    android:text="六" />
-            </LinearLayout>
-
-
-            <ViewFlipper
-                android:id="@+id/calendar_flipper"
-                android:layout_width="match_parent"
-                android:layout_height="240dip"
-                android:layout_below="@id/week"
-                android:layout_gravity="center_horizontal" />
-
-            <View
-                android:id="@+id/weekDivider"
-                android:layout_width="match_parent"
-                android:layout_height="5dip"
-                android:layout_below="@id/week"
-                android:layout_marginRight="1.5dip"
-                android:background="@drawable/global_shadow_fade_bottom" />
-
-
-            <LinearLayout
-                android:id="@+id/lunarContainer"
-                android:layout_width="match_parent"
-                android:layout_height="152dip"
-                android:layout_below="@id/calendar_flipper"
+                android:layout_height="288dip"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:background="@color/white"
-                android:orientation="vertical">
+                card_view:cardCornerRadius="1.5dip">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize">
-
-                    <TextView
-                        android:id="@+id/day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/normal_margin"
-                        android:text="25"
-                        android:textColor="?colorAccent"
-                        android:textSize="30sp" />
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/dayContainer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/day"
-                        android:orientation="vertical">
+                        android:id="@+id/week"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dip"
+                        android:layout_alignParentTop="true"
+                        android:background="?attr/colorAccent">
 
                         <TextView
-                            android:id="@+id/lunarDay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/normal_margin"
-                            android:text="二月初五"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            style="@style/weekName"
+                            android:text="日" />
 
+                        <TextView
+                            style="@style/weekName"
+                            android:text="一" />
+
+                        <TextView
+                            style="@style/weekName"
+                            android:text="二" />
+
+                        <TextView
+                            style="@style/weekName"
+                            android:text="三" />
+
+                        <TextView
+                            style="@style/weekName"
+                            android:text="四" />
+
+                        <TextView
+                            style="@style/weekName"
+                            android:text="五" />
+
+                        <TextView
+                            style="@style/weekName"
+                            android:text="六" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/holiday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/normal_margin"
-                        android:text="世界防治结核病日"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-                </RelativeLayout>
 
-                <RelativeLayout
+                    <ViewFlipper
+                        android:id="@+id/calendar_flipper"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dip"
+                        android:layout_below="@id/week"
+                        android:background="@color/white"
+                        android:layout_gravity="center_horizontal" />
+
+                    <View
+                        android:id="@+id/weekDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dip"
+                        android:layout_below="@id/week"
+                        android:background="@drawable/global_shadow_fade_bottom" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+            <!-- A CardView that contains a TextView -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="152dip"
+                android:layout_below="@id/card_view"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="@color/white"
+                card_view:cardCornerRadius="1.5dip">
+
+                <LinearLayout
+                    android:id="@+id/lunarContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="48dip">
+                    android:layout_height="152dip"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/yiTag"
-                        android:layout_width="24dip"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/normal_margin"
-                        android:gravity="center_vertical|left"
-                        android:text="宜"
-                        android:layout_centerVertical="true"
-                        android:textColor="?colorPrimary"
-                        android:textSize="16sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize">
 
-                    <TextView
-                        android:id="@+id/yi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/normal_margin"
-                        android:layout_toRightOf="@id/yiTag"
-                        android:gravity="center_vertical|left"
-                        android:text="路昂起白轴黄河科技"
-                        android:ellipsize="end"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            android:text="25"
+                            android:textColor="?colorAccent"
+                            android:textSize="30sp" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="48dip">
+                        <LinearLayout
+                            android:id="@+id/dayContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/day"
+                            android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/jiTag"
-                        android:layout_width="24dip"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/normal_margin"
-                        android:gravity="center_vertical|left"
-                        android:text="忌"
-                        android:textColor="?colorAccent"
-                        android:textSize="16sp" />
+                            <TextView
+                                android:id="@+id/lunarDay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/normal_margin"
+                                android:text="二月初五"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/ji"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/normal_margin"
-                        android:layout_toRightOf="@id/jiTag"
-                        android:gravity="center_vertical|left"
-                        android:text="路昂起白轴黄河科技"
-                        android:textColor="@color/black"
-                        android:ellipsize="end"
-                        android:textSize="13sp" />
+                        </LinearLayout>
 
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/holiday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/normal_margin"
+                            android:text="世界防治结核病日"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
 
-            </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dip">
 
+                        <TextView
+                            android:id="@+id/yiTag"
+                            android:layout_width="24dip"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            android:gravity="center_vertical|left"
+                            android:text="宜"
+                            android:layout_centerVertical="true"
+                            android:textColor="?colorPrimary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/yi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            android:layout_toRightOf="@id/yiTag"
+                            android:gravity="center_vertical|left"
+                            android:text="路昂起白轴黄河科技"
+                            android:ellipsize="end"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dip">
+
+                        <TextView
+                            android:id="@+id/jiTag"
+                            android:layout_width="24dip"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            android:gravity="center_vertical|left"
+                            android:text="忌"
+                            android:textColor="?colorAccent"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/ji"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            android:layout_toRightOf="@id/jiTag"
+                            android:gravity="center_vertical|left"
+                            android:text="路昂起白轴黄河科技"
+                            android:textColor="@color/black"
+                            android:ellipsize="end"
+                            android:textSize="13sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </RelativeLayout>
     </ScrollView>
 

@@ -94,8 +94,8 @@ public class Day implements Comparable, Parcelable, Cloneable {
     public String getDate() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(year)
-                     .append(month < 10 ? ("0" + String.valueOf(month)) : month)
-                     .append(monthDay < 10 ? ("0" + String.valueOf(monthDay)) : monthDay);
+                .append(month < 10 ? ("0" + String.valueOf(month)) : month)
+                .append(monthDay < 10 ? ("0" + String.valueOf(monthDay)) : monthDay);
         return stringBuilder.toString();
     }
 

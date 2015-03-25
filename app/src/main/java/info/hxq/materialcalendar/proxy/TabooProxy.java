@@ -12,7 +12,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -135,7 +134,7 @@ public final class TabooProxy {
         SettingProxy.saveTabooInit();
     }
 
-    public static void insertTaboo(JSONObject tabooObj, String datePrefix) throws JSONException {
+    public static void insertTaboo(JSONObject tabooObj, String datePrefix) {
         /**
          * <pre>
          "0": "辛卯年、生肖属兔、庚子月、辛酉日",
@@ -152,30 +151,38 @@ public final class TabooProxy {
          </pre>
          */
         SQLiteDatabase db = DatabaseHelper.getDatabase();
-        String riqi = tabooObj.getString("riqi");
-        riqi = riqi.substring(1, riqi.length());
-        String date = datePrefix + riqi;
-        Cursor cursor =
-                db.query(TABLENAME, new String[]{"date"}, "date = ?", new String[]{date}, null,
-                        null, null);
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("date", date);
-        contentValues.put("nongli", tabooObj.getString("nongli"));
-        contentValues.put("ganzhi", tabooObj.optString("0"));
-        contentValues.put("yi", tabooObj.optString("6"));
-        contentValues.put("ji", tabooObj.optString("8"));
-        contentValues.put("jishenyiqu", tabooObj.optString("5"));
-        contentValues.put("xiongshenyiji", tabooObj.optString("4"));
-        contentValues.put("taishenzhanfang", tabooObj.optString("7"));
-        contentValues.put("wuxing", tabooObj.optString("2"));
-        contentValues.put("chong", tabooObj.optString("3"));
-        contentValues.put("pengzubaiji", tabooObj.optString("4"));
-        if (cursor.getCount() == 0) {
-            db.insert(TABLENAME, null, contentValues);
-        } else {
-            db.update(TABLENAME, contentValues, "date=?", new String[]{date});
+        Cursor cursor = null;
+        try {
+            String riqi = tabooObj.getString("riqi");
+            riqi = riqi.substring(1, riqi.length());
+            String date = datePrefix + riqi;
+            cursor =
+                    db.query(TABLENAME, new String[]{"date"}, "date = ?", new String[]{date}, null,
+                            null, null);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("date", date);
+            contentValues.put("nongli", tabooObj.getString("nongli"));
+            contentValues.put("ganzhi", tabooObj.optString("0"));
+            contentValues.put("yi", tabooObj.optString("6"));
+            contentValues.put("ji", tabooObj.optString("8"));
+            contentValues.put("jishenyiqu", tabooObj.optString("5"));
+            contentValues.put("xiongshenyiji", tabooObj.optString("4"));
+            contentValues.put("taishenzhanfang", tabooObj.optString("7"));
+            contentValues.put("wuxing", tabooObj.optString("2"));
+            contentValues.put("chong", tabooObj.optString("3"));
+            contentValues.put("pengzubaiji", tabooObj.optString("4"));
+            if (cursor.getCount() == 0) {
+                db.insert(TABLENAME, null, contentValues);
+            } else {
+                db.update(TABLENAME, contentValues, "date=?", new String[]{date});
+            }
+        } catch (Exception e) {
+            Logger.d(e.getMessage());
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
         }
-        cursor.close();
     }
 
     public static Taboo getTodayTaboo() {
@@ -195,7 +202,7 @@ public final class TabooProxy {
                                 "ji", "jishenyiqu", "xiongshenyiji", "taishenzhanfang", "wuxing", "chong", "pengzubaiji"}, "date = ?", new String[]{dateParam}, null,
                         null, null);
         if (cursor.getCount() == 0) {
-            Logger.e("query todayDate:" + dateParam + "  is  0");
+            Logger.d("query todayDate:" + dateParam + "  is  0");
             taboo = null;
         } else {
             cursor.moveToFirst();

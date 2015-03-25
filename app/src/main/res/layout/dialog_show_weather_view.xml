@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="?attr/colorPrimary"
+        android:layout_height="wrap_content">
+
+        <com.skyicons.library.SunView
+            android:id="@+id/sunview"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:bgColor="?attr/colorPrimary"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+
+        <com.skyicons.library.MoonView
+            android:id="@+id/moonView"
+            android:layout_toRightOf="@id/sunview"
+            android:layout_alignTop="@id/sunview"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:bgColor="?attr/colorPrimary"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+
+        <com.skyicons.library.CloudHvRainView
+            android:id="@+id/cloudHvRainView"
+            android:layout_toRightOf="@id/moonView"
+            android:layout_alignTop="@id/moonView"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:bgColor="?attr/colorPrimary"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+
+        <com.skyicons.library.CloudThunderView
+            android:id="@+id/cloudThunderView"
+            android:layout_toRightOf="@id/cloudHvRainView"
+            android:layout_alignTop="@id/cloudHvRainView"
+            app:bgColor="?attr/colorPrimary"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:layout_columnSpan="1"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+
+        <com.skyicons.library.CloudSnowView
+            android:id="@+id/cloudSnowView"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/sunview"
+            app:bgColor="?attr/colorPrimary"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+
+        <com.skyicons.library.WindView
+            android:id="@+id/windView"
+            android:layout_toRightOf="@id/cloudSnowView"
+            android:layout_below="@id/sunview"
+            app:bgColor="?attr/colorPrimary"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+
+        <com.skyicons.library.CloudView
+            android:id="@+id/cloudView"
+            android:layout_toRightOf="@id/windView"
+            android:layout_below="@id/sunview"
+            app:bgColor="?attr/colorPrimary"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+
+        <com.skyicons.library.CloudSunView
+            android:layout_toRightOf="@id/cloudView"
+            android:layout_below="@id/sunview"
+            app:bgColor="?attr/colorPrimary"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            app:isStatic="false"
+            app:strokeColor="@color/white" />
+    </RelativeLayout>
+</RelativeLayout>
