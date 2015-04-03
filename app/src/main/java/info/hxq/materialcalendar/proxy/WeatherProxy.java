@@ -39,7 +39,9 @@ public final class WeatherProxy {
             "location=北京&output=json&ak=2gbq3O7pe0QC5tuFnURSG6ZF" +
             "&mcode=AF:81:5F:33:1B:83:07:21:E4:AB:9F:4D:31:BB:BE:FE:42:B3:E4:31;info.hxq.materialcalendar";
 
-    private static final String WE = "http://api.map.baidu.com/telematics/v3/weather?location=%E5%8C%97%E4%BA%AC&output=json&ak=2gbq3O7pe0QC5tuFnURSG6ZF&mcode=AF:81:5F:33:1B:83:07:21:E4:AB:9F:4D:31:BB:BE:FE:42:B3:E4:31;info.hxq.materialcalendar&date=20150325";
+    private static final String WE = "http://api.map.baidu.com/telematics/v3/weather?location=%E5%8C%97%E4%BA%AC&output=json" +
+            "&ak=2gbq3O7pe0QC5tuFnURSG6ZF&mcode=AF:81:5F:33:1B:83:07:21:E4:AB:9F:4D:31:BB:BE:FE:42:B3:E4:31;" +
+            "info.hxq.materialcalendar&date=20150325";
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (newVersion < DatabaseHelper.DATABASE_VERSION) {
@@ -113,7 +115,9 @@ public final class WeatherProxy {
         Time time = new Time();
         time.setToNow();
         int month = time.month + 1;
-        String todayDate = String.valueOf(time.year) + String.valueOf(month < 10 ? "0" + month : month) + String.valueOf(time.monthDay);
+        String todayDate = String.valueOf(time.year)
+                + String.valueOf(month < 10 ? "0" + month : month)
+                + String.valueOf(time.monthDay < 10 ? "0" + time.monthDay : time.monthDay);
         return getWeatherByDate(todayDate);
     }
 
