@@ -23,7 +23,7 @@ version 1.1
 * 天气的城市选择
 
 
-#Thanks
+# Thanks
 
 * [butterknife](https://github.com/JakeWharton/butterknife)
 * [SuperToasts](https://github.com/JohnPersano/SuperToasts)
